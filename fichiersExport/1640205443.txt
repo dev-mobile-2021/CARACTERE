@@ -1,0 +1,152 @@
+160	ADEMAS	caractere@gmail.com	77 700 00 00	caractere	
+
+161	ADIE	caractere@gmail.com	78 700 00 00	caractere	
+
+162	AGROLINE	caractere@gmail.com	79 700 00 00	caractere	
+
+163	AIGLE AZUR	caractere@gmail.com	80 700 00 00	caractere	
+
+164	ALCATEL	caractere@gmail.com	81 700 00 00	caractere	
+
+165	ALIZES NETTOYAGE	caractere@gmail.com	82 700 00 00	caractere	
+
+166	AMBASSADE DE FRANCE	caractere@gmail.com	83 700 00 00	caractere	
+
+167	ARCHIPEL & CO	caractere@gmail.com	84 700 00 00	caractere	
+
+168	AUCHAN SENEGAL	caractere@gmail.com	85 700 00 00	caractere	
+
+169	BANK OF AFRICA	caractere@gmail.com	86 700 00 00	caractere	
+
+170	BIC	caractere@gmail.com	87 700 00 00	caractere	
+
+171	BICIS	caractere@gmail.com	88 700 00 00	caractere	
+
+172	BNDE	caractere@gmail.com	89 700 00 00	caractere	
+
+173	BUILD SMARTBUILD	caractere@gmail.com	90 700 00 00	caractere	
+
+174	CABLERIES DU SENEGAL	caractere@gmail.com	91 700 00 00	caractere	
+
+175	CASINO	caractere@gmail.com	92 700 00 00	caractere	
+
+176	CLM_CELLULE DE LUTTE CONTRE LA MALN	caractere@gmail.com	93 700 00 00	caractere	
+
+177	COFINA	caractere@gmail.com	94 700 00 00	caractere	
+
+178	COMITE INTERNATIONAL OLYMPIQUE	caractere@gmail.com	95 700 00 00	caractere	
+
+179	CUMMINS AFRIQUE DE L'OUEST	caractere@gmail.com	96 700 00 00	caractere	
+
+180	DECATHLON	caractere@gmail.com	97 700 00 00	caractere	
+
+181	DIAGONAL_CITYDIA	caractere@gmail.com	98 700 00 00	caractere	
+
+182	CLIENTS DIVERS	caractere@gmail.com	99 700 00 00	caractere	
+
+183	EIFFAGE SENEGAL 	caractere@gmail.com	100 700 00 00	caractere	
+
+184	EL TORO	caractere@gmail.com	101 700 00 00	caractere	
+
+185	FREE_SAGA AFRICA HOLDINGS	caractere@gmail.com	102 700 00 00	caractere	
+
+186	GRANT THORNTON	caractere@gmail.com	103 700 00 00	caractere	
+
+187	GRAS SAVOYE_CIES	caractere@gmail.com	104 700 00 00	caractere	
+
+188	ICARE SA	caractere@gmail.com	105 700 00 00	caractere	
+
+189	INASEN	caractere@gmail.com	106 700 00 00	caractere	
+
+190	INTERNATIONAL ORGANIZATION OF MIGRA	caractere@gmail.com	107 700 00 00	caractere	
+
+191	JUMBO_GB FOODS SENEGAL SA	caractere@gmail.com	108 700 00 00	caractere	
+
+192	JUMIA 	caractere@gmail.com	109 700 00 00	caractere	
+
+193	JUVASANTE INTERNATIONAL	caractere@gmail.com	110 700 00 00	caractere	
+
+194	PH 2 O SARL KING'S CLUB	caractere@gmail.com	111 700 00 00	caractere	
+
+195	KIRENE-MOBILE	caractere@gmail.com	112 700 00 00	caractere	
+
+196	LABOREX SENEGAL	caractere@gmail.com	113 700 00 00	caractere	
+
+197	LACTALIS	caractere@gmail.com	114 700 00 00	caractere	
+
+198	LA FOURCHETTE	caractere@gmail.com	115 700 00 00	caractere	
+
+199	LA SENEGALAISE DE L'AUTOMOBILE	caractere@gmail.com	116 700 00 00	caractere	
+
+200	LES CABLERIES DU SENEGAL	caractere@gmail.com	117 700 00 00	caractere	
+
+201	LUB & SUPPLY_CIES	caractere@gmail.com	118 700 00 00	caractere	
+
+202	Ets Meroueh et Cie	caractere@gmail.com	119 700 00 00	caractere	
+
+203	ORANGE MIDDLE EAST AND AFRICA	caractere@gmail.com	120 700 00 00	caractere	
+
+204	NUTRALINE	caractere@gmail.com	121 700 00 00	caractere	
+
+205	OLEOSEN	caractere@gmail.com	122 700 00 00	caractere	
+
+206	OO2SENEGAL SARL CIES	caractere@gmail.com	123 700 00 00	caractere	
+
+207	ORABANK SENEGAL	caractere@gmail.com	124 700 00 00	caractere	
+
+208	ORANGE CAMEROUN	caractere@gmail.com	125 700 00 00	caractere	
+
+209	CONAKRY	caractere@gmail.com	126 700 00 00	caractere	
+
+210	ORANGE COTE D'IVOIRE	caractere@gmail.com	127 700 00 00	caractere	
+
+211	ORANGE NIGER	caractere@gmail.com	128 700 00 00	caractere	
+
+212	PNL_PEOPLE NO LIMIT SARL	caractere@gmail.com	129 700 00 00	caractere	
+
+213	RENOV INDUSTRIES_CIES	caractere@gmail.com	130 700 00 00	caractere	
+
+214	RIA	caractere@gmail.com	131 700 00 00	caractere	
+
+215	CHEIL SOUTH AFRICA ( SAMSUNG)	caractere@gmail.com	132 700 00 00	caractere	
+
+216	SEN'EAU_EAU DU SENEGAL	caractere@gmail.com	133 700 00 00	caractere	
+
+217	SERTEM	caractere@gmail.com	134 700 00 00	caractere	
+
+218	SGBS_SOCIETE GENERALE DE BANQUE AU 	caractere@gmail.com	135 700 00 00	caractere	
+
+219	SIAGRO_KIRENE	caractere@gmail.com	136 700 00 00	caractere	
+
+220	SIMPA	caractere@gmail.com	137 700 00 00	caractere	
+
+221	SIPRES	caractere@gmail.com	138 700 00 00	caractere	
+
+222	SOCAS	caractere@gmail.com	139 700 00 00	caractere	
+
+223	SOCIETE COMMERCIALE INDUS.DAKAROISE	caractere@gmail.com	140 700 00 00	caractere	
+
+224	SOFIEX	caractere@gmail.com	141 700 00 00	caractere	
+
+225	SONATEL_ORANGE	caractere@gmail.com	142 700 00 00	caractere	
+
+226	SUEZ GROUPE	caractere@gmail.com	143 700 00 00	caractere	
+
+227	SUNSHINE LTD / GROUPE TOPAZ	caractere@gmail.com	144 700 00 00	caractere	
+
+228	SUNU ASSURANCE	caractere@gmail.com	145 700 00 00	caractere	
+
+229	TEYLIOM PROPERTISES	caractere@gmail.com	146 700 00 00	caractere	
+
+230	TOTAL SENEGAL	caractere@gmail.com	147 700 00 00	caractere	
+
+231	TOTAL MARKETING SERVICES	caractere@gmail.com	148 700 00 00	caractere	
+
+232	TOTAL OUTRE MER	caractere@gmail.com	149 700 00 00	caractere	
+
+233	TRANPAPS	caractere@gmail.com	150 700 00 00	caractere	
+
+234	WILLIS TOWERS  WATSON 	caractere@gmail.com	151 700 00 00	caractere	
+
+235	WOODSIDE ENERGY SENEGAL	caractere@gmail.com	152 700 00 00	caractere	
+

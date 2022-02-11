@@ -1,0 +1,14 @@
+1	Agroline	agroline@gmail.com	771500440	Dakar	
+
+2	CIES	cies@gmail.com	771234567	Dakar	
+
+3	Siagro Kir&egrave;ne	siagro@gmail.com	771111111	Pikine	
+
+4	Orange S&eacute;n&eacute;gal	orange@orange.sn	77 000 00 00	64, VDN, Dakar - S&eacute;n&eacute;gal	
+
+5	Kir&egrave;ne avec Orange	orange@orange.sn	771111111	Dakar	
+
+6	Woodside	woodside@gmail.com	771111111	Dakar	
+
+7	Damag Casino	damag@gmail.com	771111111	Dakar	
+
