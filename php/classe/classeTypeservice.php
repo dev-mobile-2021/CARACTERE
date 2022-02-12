@@ -81,14 +81,31 @@
 		// Insertion des valeurs 
 		/** Fonctions CRUD **/
 		public function addTypeservice() {
-			$requete = Connexion::Connect()->prepare('INSERT INTO typeservice(idTypeservice, referenceTypeservice, typeService, idFamille, description) VALUES (?, ?, ?, ?, ?)');
+			$db = Connexion::Connect();
+			$requete = $db->prepare('INSERT INTO typeservice(idTypeservice, referenceTypeservice, typeService, idFamille, description) VALUES (?, ?, ?, ?, ?)');
 			$requete->bindValue(1, $this->getIdTypeservice());
 			$requete->bindValue(2, $this->getReferenceTypeservice());
 			$requete->bindValue(3, $this->getTypeService());
 			$requete->bindValue(4, $this->getIdRubrique());
 			$requete->bindValue(5, $this->getDescription());
 			$res = $requete->execute();
+			$idTypeService = $db->lastInsertId();
+			
 			return($res);
+		}
+
+		public function addTypeserviceNew() {
+			$db = Connexion::Connect();
+			$requete = $db->prepare('INSERT INTO typeservice(idTypeservice, referenceTypeservice, typeService, idFamille, description) VALUES (?, ?, ?, ?, ?)');
+			$requete->bindValue(1, $this->getIdTypeservice());
+			$requete->bindValue(2, $this->getReferenceTypeservice());
+			$requete->bindValue(3, $this->getTypeService());
+			$requete->bindValue(4, $this->getIdRubrique());
+			$requete->bindValue(5, $this->getDescription());
+			$res = $requete->execute();
+			$idTypeService = $db->lastInsertId();
+		
+			return($idTypeService);
 		}
 		// Modification des valeurs
 		public function updateTypeservice() {

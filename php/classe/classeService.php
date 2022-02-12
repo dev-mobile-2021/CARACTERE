@@ -60,11 +60,11 @@
 		}
 		// Insertion des valeurs 
 		/** Fonctions CRUD **/
-		public function addService() {
+		public function addService($idService = null) {
 
 			$db = Connexion::Connect();
 			$requete = $db->prepare('INSERT INTO service(idService, referenceService, service) VALUES (?, ?, ?)');
-			$requete->bindValue(1, $this->getIdService());
+			$requete->bindValue(1, !isset($idService) ? $this->getIdService() : $idService);
 			$requete->bindValue(2, $this->getReferenceService());
 			$requete->bindValue(3, $this->getService());
 			$res = $requete->execute();

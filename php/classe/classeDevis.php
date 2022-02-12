@@ -659,11 +659,22 @@ class Devis
 		/*On parcours le résultat*/
 		foreach ($requete as $donnee) {
 			$list[] = $donnee;
+			foreach ($list as $value) {
+				$val = $value['service'];
+			}
+		}
+		if(!isset($list) || count($list) <= 0){
+			$requete = Connexion::Connect()->query("SELECT typeService FROM typeservice WHERE idTypeservice = \"$idService\" ");
+			/*On parcours le résultat*/
+			foreach ($requete as $donnee) {
+				$list[] = $donnee;
+			}
+			foreach ($list as $value) {
+				$val = $value['typeService'];
+			}
 		}
 
-		foreach ($list as $value) {
-			$val = $value['service'];
-		}
+		
 		if (count($list) != 0) {
 			return $val;
 		} else

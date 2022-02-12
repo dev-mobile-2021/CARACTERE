@@ -529,6 +529,7 @@ if (isset($_GET['changerEtat'])) {
 
   require_once("../classe/classeDevis.php");
   $Devis = new Devis();
+  //echo 'Sous servi : '. $_GET['sousServices'];
   $idRubrique = $_GET['idRubrique'];
   $idFamille = $_GET['idFamille'];
   $idTypeservice = $_GET['idTypeservice'];
@@ -547,7 +548,8 @@ if (isset($_GET['changerEtat'])) {
   require_once('../classe/classeConnexion.php');
 
   $idDevs = $_SESSION['idDevisZelda'];
-  $infosFour = $_GET['idFournisseur'];
+  if(isset($_GET['idFournisseur'])){
+    $infosFour = $_GET['idFournisseur'];
   $tab = explode("-", $infosFour);
   $requete = Connexion::Connect()->prepare('UPDATE devis SET idFournisseur = ?, nomFournisseur = ? WHERE idDevis = ? ');
   $requete->bindValue(1, $tab[0]);
@@ -585,6 +587,7 @@ if (isset($_GET['changerEtat'])) {
       $tp0 = explode('":"', $tp[0]);
       $tp0 = ltrim($tp0[0], '"');
       $tp3 = substr($tp[3], 0, -1);
+     // echo $tp0;
       $libelleService = $Devis->getServiceLibelle($tp0);
       // print_r($tp0);
       // $sousServices .= intval($tp0)."-".intval($tp[1])."-".intval($tp[2])."-".intval($tp3)."-----";
@@ -597,22 +600,28 @@ if (isset($_GET['changerEtat'])) {
     }
 
     $req .= "
-                    INSERT INTO detailsdevis(idDetailsdevis, idDevis, idRubrique, idFamille, idTypeservice, idService, prixAchat, prixVente, quantite, etat) 
-                    VALUES('', '" . $idDevis . "', '" . $idRubrique . "', '" . $idFamille . "', '" . $idTypeservice . "', '" . $idService . "', '" . $prixAchat . "', '" . $prixVente . "', '" . $quantite . "', '" . $etat . "');
+                    INSERT INTO detailsdevis(idDevis, idRubrique, idFamille, idTypeservice, idService, prixAchat, prixVente, quantite, etat) 
+                    VALUES('" . $idDevis . "', '" . $idRubrique . "', '" . $idFamille . "', '" . $idTypeservice . "', '" . $idService . "', '" . $prixAchat . "', '" . $prixVente . "', '" . $quantite . "', '" . $etat . "');
                 ";
   }
 
   $req .= "
-            INSERT INTO detailstypeservice(id, idRubrique, idFamille, idTypeservice, idDevis, hasComment, commentaire, hasPrice, prixAchat, prixVente, quantite, etat) 
-            VALUES('', '" . $idRubrique . "', '" . $idFamille . "', '" . $idTypeservice . "', '" . $idDevis . "', '" . $hasComment . "', '" . $commentaire . "', '" . $hasPrice . "', '" . $prixAchatTypeService . "', '" . $prixVenteTypeService . "', '" . $quantiteTypeService . "', '" . $etat . "');
+            INSERT INTO detailstypeservice(idRubrique, idFamille, idTypeservice, idDevis, hasComment, commentaire, hasPrice, prixAchat, prixVente, quantite, etat) 
+            VALUES('" . $idRubrique . "', '" . $idFamille . "', '" . $idTypeservice . "', '" . $idDevis . "', '" . $hasComment . "', '" . $commentaire . "', '" . $hasPrice . "', '" . $prixAchatTypeService . "', '" . $prixVenteTypeService . "', '" . $quantiteTypeService . "', '" . $etat . "');
         ";
   // $sousServices = $sousService;
   $resultatRequete = $Devis->insertSousservices($req);
   $resultatRequete = 1;
   // $res = $resultatRequete."#res#".$sousServices."--*--".$req;
   $res = $resultatRequete . "#res#" . $sousServices;
-  echo $res;
+ 
+  }else{
+    $resultatRequete = -1;
+    $res = $resultatRequete . "#res#";
+  }
 
+  echo $res;
+  
   // <span>Sous-service 1</span><span style="float: right; padding-right: 100px;">2500 F</span><br>
 } else if (isset($_POST['addCommenaire'])) {
   require_once("../classe/classeDevis.php");
@@ -779,6 +788,7 @@ if (isset($_GET['changerEtat'])) {
     echo 2;
   }
 } else if (isset($_POST['ajouterDescriptif'])) {
+  $idReturn = null;
   $a = matricule("typeservice", "referenceTypeservice");
   $moisAnnee = date("m") . date("Y");
   if ($a != "0") {
@@ -789,15 +799,45 @@ if (isset($_GET['changerEtat'])) {
   } else {
     $a = "TS" . $moisAnnee . "-001";
   }
-  // echo $a;
+  
   require_once('../classe/classeTypeservice.php');
   $Typeservice = new Typeservice();
   if ($Typeservice->libelleExist(htmlentities($_POST['typeService'], ENT_SUBSTITUTE)) == false) {
     $Typeservice = new Typeservice(NULL, $a, htmlentities($_POST['typeService'], ENT_SUBSTITUTE), htmlentities(htmlspecialchars($_POST['idFamille']), ENT_SUBSTITUTE), htmlentities($_POST['description'], ENT_SUBSTITUTE));
-    echo $Typeservice->addTypeservice();
-  } else {
+    $idReturn =  $Typeservice->addTypeserviceNew();
+    //On l'ajoute aussi dans la table service
+    if(isset($idReturn)){
+      $a = matricule("service", "referenceService");
+      $moisAnnee = date("m").date("Y");
+      if($a != "0"){
+          $str = explode("-", $a);
+          $tmp = intval($str[1])+1;
+          $tmp = str_pad($tmp, 3, "0", STR_PAD_LEFT);
+          $a = "SR".$moisAnnee."-".$tmp;
+         
+      }else{
+          $a="SR".$moisAnnee."-001";
+      }
+
+      require_once('../classe/classeService.php');
+      $Service = new Service();
+      if ($Service->libelleExist(htmlentities(htmlspecialchars($_POST['typeService']), ENT_SUBSTITUTE)) == false) {
+          $Service = new Service(NULL, $a, htmlentities(htmlspecialchars($_POST['typeService']), ENT_SUBSTITUTE));
+      
+          $idService =  $Service->addService($idReturn);
+    }
+   }
+    
+
+  
+    echo 1;
+  
+    } else {
     echo 2;
   }
+  
+  
+
 } else {
   if (isset($opt)) {
     $opt = explode("-", $opt);

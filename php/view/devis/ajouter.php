@@ -274,8 +274,6 @@
 
                     <input type="hidden" id="typeserviceid">
                     <input type="hidden" id="texttypeserviceid">
-                    <input type="hidden" id="textdescriptifid">
-
 
                     <div class="col-md-3">
                       <div class="form-group">
@@ -365,9 +363,7 @@
 
                               ?>
                             </select>
-                            <!-- <select onchange="serviceChange(this)" class="form-control select2" style="width: 100%;" required="" id="idTypeservice" name="idTypeservice">
-
-                            </select> -->
+                            
                           </div>
                         </div>
                         <div class="col-md-3" style="padding-left: 0px;">
@@ -596,7 +592,7 @@
       $("#prixVente").val('');
       $("#quantite").val('');
 
-
+     // alert(toAdd);
       $("#sousServices").attr("value", toAdd);
     }
 
@@ -707,30 +703,20 @@
         totalSousService = totalSousService + parseInt($(this).attr('data-value'));
     });
 
-    console.log("id rubrique sendAll", $('#idRubrique').val())
-    console.log("id typeservice sendAll", $('#idTypeservice').val())
+    // console.log("id rubrique sendAll", $('#idRubrique').val())
+    // console.log("id typeservice sendAll", $('#idTypeservice').val())
 
     if (((totalService == totalSousService) && (totalService != 0 && totalSousService != 0)) || (totalSousService == 0 && totalService != 0) || (totalSousService != 0 && totalService == 0)) {
       var idRubrique = $('#rubriqueid').val();
       var idTypeservice = $("#typeserviceid").val();
+      console.log('je cherche', idTypeservice);
 
       var idFamille = $('#idFamille').val();
       //  var idTypeservice = $('#idTypeservice').val();
       var idFournisseur = $('#idFournisseur').val();
-
-      // alert(idFournisseur);
-
       var texteTypeService = $("#typeserviceid :selected").text();
       var texteRubrique = $("#textrubriqueid").val();
-      if(!texteTypeService || texteTypeService =='')
-      {
-        texteTypeService = $("#textdescriptifid").val();
-
-      }
-      // var texteRubrique = $("#textrubriqueid").val();
       var texteFamille = $("#idFamille :selected").text();
-
-
       var commentaireTypeservice = "Aucun";
       commentaireTypeservice = $('#commentaireTypeservice').val();
       var prixAchatService = "Aucun";
@@ -739,32 +725,30 @@
       prixVenteService = $('#prixVenteService').val();
       var quantiteService = "Aucun";
       quantiteService = $('#quantiteService').val();
-
+      //Maitenance en cours
       var sousServices = $('#sousServices').attr("value");
+     // alert(sousServices);
       var idDevis = $('.idDevis').attr("value");
       var currentRubrique = $('#currentRubrique').attr("value");
 
-
       var idtypehidden = $("#typeserviceid").val();
-      console.log("rubrique famille typeservice", idRubrique, idFamille, idTypeservice, idtypehidden)
-
-      $('.loaderMessage').addClass('is-active');
+      console.log("rubrique famille typeservice", idRubrique, idFamille, idTypeservice, idtypehidden, "sousServices: "+sousServices)
+      if(idFournisseur && idFournisseur !== ''){
+        $('.loaderMessage').addClass('is-active');
       $.ajax({
         type: "POST",
         url: "php/controller/devis.php?addServices&idRubrique=" + idRubrique + "&idFamille=" + idFamille + "&idTypeservice=" + idTypeservice + "&sousServices=" + sousServices + "&idDevis=" + idDevis + "&idFournisseur=" + idFournisseur + "&prixAchatService=" + prixAchatService + "&prixVenteService=" + prixVenteService + "&quantiteService=" + quantiteService, //process to mail
 
         data: $(this).serialize(),
         success: function(msg) {
+          console.log('results : ',msg)
           var msgvals = msg.split("#res#");
           if (parseInt(msgvals[0]) == 1) {
-            // swal({ title: "Bravo !", text: "Le service a &eacute;t&eacute; ajout&eacute; avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
-
 
             var sousServicesAffiche = msgvals[1];
             // alert(sousServicesAffiche);
-            console.log("verifie 0");
             if ($('#Rubrique' + idRubrique).length) {
-              console.log("verifie 1");
+              
               //On recupere le total actel de la rubrique
               var totalRubriqueActu = 0;
               if (isNaN(parseInt($("#ddRubrique" + idRubrique).attr('data-value'))))
@@ -801,7 +785,8 @@
                   '</div>'
                 );
               }
-
+              console.log('idTypeservice:'+idTypeservice , "idRubrique: "+idRubrique, "idFamille: " + idFamille, "idTypeservice: " +idTypeservice,"texteTypeService: "+texteTypeService,"totalServiceAffiche: "+totalServiceAffiche);
+              
               $("#Famille" + idFamille).append(
                 '<div id="Typeservice' + idTypeservice + '" data-rubrique="' + idRubrique + '" data-famille="' + idFamille + '" class="col-md-12" style="padding-right:0px; padding-left:0px;">' +
                 '<p style="float: right !important; padding-right: 0px !important; font-weight: bold;" class="typeServiceUtilise' + idFamille + '" data-value="' + idTypeservice + '"><strong>' + texteTypeService + '</strong><strong class="classTotalService" data-value="' + totalServiceAfficheValeur + '" style="float: right;padding-right: 0px;">' + totalServiceAffiche + ' F</strong></p>' +
@@ -811,7 +796,7 @@
                 '</div>'
               );
             } else {
-              console.log("verifie 2");
+              
               var totalAffiche = 0;
               var totalAfficheValeur = 0;
               var totalServiceAfficheValeur = 0;
@@ -832,7 +817,6 @@
               //ajout de titre 1 
               //  totalAfficheValeur = 5000
               //texteRubrique = 'fdzkjf';
-              console.log("verifie 3", idRubrique, totalAfficheValeur, texteFamille, idFamille, texteRubrique, totalAffiche);
 
               $("#detailDevis").append(
                 '<div class="col-md-12" id="Rubrique' + idRubrique + '" data-id="' + idRubrique + '">' +
@@ -856,7 +840,8 @@
                   +'</p>'
                 +'</div>'
               );*/
-              console.log('Id famille: ', idFamille, 'IdTypeservice : ', idTypeservice, 'IdRubrique :', idRubrique, 'Text descriptif:', texteTypeService)
+              console.log('idTypeservice:'+idTypeservice , "idRubrique: "+idRubrique, "idFamille: " + idFamille, "idTypeservice: " +idTypeservice,"texteTypeService: "+texteTypeService,"totalServiceAffiche: "+totalServiceAffiche, "Sous service : " + sousServicesAffiche);
+
               $("#Famille" + idFamille).append(
                 '<div id="Typeservice' + idTypeservice + '" data-rubrique="' + idRubrique + '" data-famille="' + idFamille + '" class="col-md-12" style="padding-right:0px; padding-left:0px;">' +
                 '<p style="float: right !important; padding-right: 0px !important; font-weight: bold;" class="typeServiceUtilise' + idFamille + '" data-value="' + idTypeservice + '"><strong>' + texteTypeService + '</strong><strong class="classTotalService"  style="float: right; padding-right: 0px;"></strong></p>' +
@@ -912,7 +897,16 @@
               imageUrl: 'dist/img/icones/error.png',
               html: true
             });
-          } else {
+          }
+          else if (parseInt(msgvals[0]) == -1) {
+            swal({
+              title: "Erreur",
+              text: "Veuillez choisir le fournisseur ",
+              imageUrl: 'dist/img/icones/error.png',
+              html: true
+            });
+          }
+           else {
             swal({
               title: "D&eacute;sol&eacute;",
               text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard",
@@ -934,6 +928,15 @@
           });
         }
       });
+      }else{
+        swal({
+            title: "D&eacute;sol&eacute;",
+            text: "Veuillez choisir un fournisseur svp !",
+            imageUrl: 'dist/img/icones/error.png',
+            html: true
+          });
+      }
+      
 
 
 
@@ -1365,12 +1368,12 @@
         <h4 class="modal-title">Ajout Service</h4>
       </div>
       <form id="monFormServiceType">
-        <div class="modal-body">
+        <div class="modal-body" >
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
                 <label>Type service</label>
-                <select class="form-control select2" style="width: 100%;" required="" name="idRubrique">
+                <select class="form-control select2" style="width: 100%;" required="" name="idRubrique" id="divmodalservice">
                   <?php
                   require_once('php/classe/classeRubrique.php');
                   $Rubrique = new Rubrique();
@@ -1422,7 +1425,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Service</label>
-                <select class="form-control select2" style="width: 100%;" required="" name="idFamille">
+                <select class="form-control select2" style="width: 100%;" required="" name="idFamille" id="divmodaldescriptif">
                   <?php
                   require_once('php/classe/classeFamille.php');
                   $Famille = new Famille();
@@ -1497,7 +1500,6 @@
           console.log("idrubrique ", idRubrique)
           // $("#idRubrique").append("<option value="' . $value['idRubrique'] . '">' . $value['rubrique'] . '</option>");
 
-
           if (idRubrique) {
             console.log("id rubrique ", idRubrique)
             var ur = "php/view/devis/fill.php?idRubrique=" + idRubrique;
@@ -1513,6 +1515,13 @@
 
                 if (sg != "") {
                   $('#idRubrique').html(sg);
+
+                   $('#divmodalservice').html(sg);
+
+                  
+
+
+
                 } else {
                   $('#idRubrique').html("");
 
@@ -1593,6 +1602,8 @@
                 //  alert(sg);
                 if (sg != "") {
                   $('#newServiceExistantLigne #idFamille').html(sg);
+                  $('#divmodaldescriptif').html(sg);
+                  
                   $("#bouttonEnregistrer").attr("disabled", true);
                   $("#bouttonEnregistrer").html("Choisissez un service");
                 } else {
@@ -1723,6 +1734,8 @@
       }
     });
   });
+
+  
 </script>
 
 <a href="#" class="float btn" data-toggle="tooltip" title="Basculer en mode &eacute;dition" style="display: none;" id="bouttonEdition">
