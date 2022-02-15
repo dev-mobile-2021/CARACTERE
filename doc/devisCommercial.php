@@ -232,10 +232,9 @@ foreach ($requeteService as $donnee) {
 				<td style="width: 100%; text-align: right; font-weight: bold;"><?php echo html_entity_decode($value['prenomClient']) ?> <?php echo html_entity_decode($value['nomClient']) ?></td>
 			</tr>
 
-			<tr>
+			<!-- <tr>
 				<td style="width: 100%; text-align: right;"><?php echo html_entity_decode($value['adresseClient'] ) ?></td>
-
-			</tr>
+			</tr> -->
 			<!-- <tr>
 				<td style="width: 50%; text-align: left;"><?php echo $typetaxe ?></td>
 
@@ -292,7 +291,7 @@ foreach ($requeteService as $donnee) {
 
 					$requeteFamille = Connexion::Connect()->query("
 			
-			SELECT DISTINCT(d.idFamille), d.quantite, (d.prixVente*d.quantite) as montant, f.famille FROM detailstypeservice d, famille f 
+			SELECT DISTINCT(d.idFamille), d.quantite,d.prixVente, (d.prixVente*d.quantite) as montant, f.famille FROM detailstypeservice d, famille f 
 			WHERE d.idDevis = \"$idDevis\" AND d.idRubrique = \"$idRubrique\" AND d.idFamille = f.idFamille 
 			");
 
@@ -307,9 +306,11 @@ foreach ($requeteService as $donnee) {
 			<?php foreach ($listFamille as $valueFamille) { ?>
 				<table class="addPadding" cellpadding="0" cellspacing="0" style="margin-top: 5px; padding-top: 1px; padding-bottom: 1px;">
 					<tr>
-						<td style="padding: 5px; padding-top: 1px; padding-bottom: 1px; width: 60%; font-weight: bold;"><?php echo $valueFamille['famille'] ?></td>
-						<td style="padding: 5px; width: 15%; text-align: right;"><?php echo "<strong style='text-align:center;'>" . html_entity_decode(decodeCaractere($valueFamille['quantite'])) . "</strong><br>"; ?></td>
-						<td style="padding: 5px; padding-top: 1px; padding-bottom: 1px; width: 25%; text-align: right;font-weight: bold;"><?php echo number_format($valueFamille['montant'], 0, ',', ' ') ?> F</td>
+						<td style="padding: 3px; padding-top: 1px; padding-bottom: 1px; width: 60%; font-weight: bold;"><?php echo $valueFamille['famille'] ?></td>
+						<td style="width: 15%;"><?php echo "<strong style='text-align:center;'>" . html_entity_decode(decodeCaractere($valueFamille['quantite'])) . "</strong><br>"; ?></td>
+						<td style="padding-top: 1px; padding-bottom: 1px; width: 25%;font-weight: bold;"><?php echo number_format($valueFamille['prixVente'], 0, ',', ' ') ?> F</td>
+						<!-- <td style="padding: 1px; padding-top: 1px; padding-bottom: 1px; width: 25%; text-align: right;font-weight: bold;"><?php echo number_format($valueFamille['montant'], 0, ',', ' ') ?> F</td> -->
+						<td style="padding: 1px; padding-top: 1px; padding-bottom: 1px; width: 25%; text-align: right;font-weight: bold;"><?php  ?> </td>
 
 					</tr>
 				</table>
@@ -327,7 +328,30 @@ foreach ($requeteService as $donnee) {
 
 							?>
 				<?php foreach ($listTypeservice as $valueTypeservice) {
-										$idTypeservice = $valueTypeservice['idTypeservice'];
+							$idTypeservice = $valueTypeservice['idTypeservice'];
+
+							// $queryMontantVenteUnitaire = Connexion::Connect()->query("
+                            // SELECT d.prixVente, d.prixAchat, d.quantite
+                            // FROM detailstypeservice d
+                            // WHERE d.idTypeservice = \"$idTypeservice\"
+                            // AND d.idDevis = \"$idDevis\"
+                            // AND d.idRubrique = \"$idRubrique\"
+                            //   ");
+
+							//   $prix              =[];
+                            //   $prixVenteUnitaire = 0;
+                            //   $prixAchatUnitaire = 0;
+                            //   $quantiteUnitaire  = 0;
+                              
+
+                            //   foreach ($queryMontantVenteUnitaire as $donneemontantVente) {
+                            //     $prix[] = $donneemontantVente;
+                            //   }
+                            //   if(isset($prix) && count($prix) > 0){
+                            //     $prixVenteUnitaire     = $prix[0]['prixVente'];
+                            //     $prixAchatUnitaire     = $prix[0]['prixAchat'];
+                            //     $quantiteUnitaire      = $prix[0]['quantite'];
+                            //   }
 
 					?>
 					<table class="addPadding" cellpadding="0" cellspacing="0">
