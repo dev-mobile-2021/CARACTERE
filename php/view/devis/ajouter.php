@@ -578,7 +578,7 @@
       var quantiteTexte = number_format(quantite, 0, '', ' ');
       var totalLigne = number_format(parseInt(prixVente) * parseInt(quantite), 0, '', ' ');
 
-      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeservice + ')" data-toggle="tooltip" title="Cliquez pour modifier" class="row ligneSousService" id="id' + idTypeservice + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
+      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeservice + ')" data-toggle="tooltip" title="Cliquez pour modifier2" class="row ligneSousService" id="id' + idTypeservice + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
       $(".ligneSousService").tooltip();
       //Desactivation du sous service dans la liste
       $("#idTypeservice :selected").attr("disabled", true);
@@ -601,7 +601,11 @@
   function updateLine(id) {
     var ligne = window.tableauSousService[id];
     var valeurs = ligne.split("+@+");
-    $("#monFormUpdateLine #idTypeserviceMod").val(valeurs[0]).change();
+    setTimeout(function () {
+        $('#idTypeserviceMod').val(valeurs[0]).trigger('change');
+    }, 500);
+
+   // $("#monFormUpdateLine #idTypeserviceMod").val(valeurs[0]).change();
     $("#monFormUpdateLine #prixAchat").val(valeurs[1]);
     $("#monFormUpdateLine #prixVente").val(valeurs[2]);
     $("#monFormUpdateLine #quantite").val(valeurs[3]);
@@ -644,7 +648,7 @@
       var quantiteTexte = number_format(quantite, 0, '', ' ');
       var totalLigne = number_format(parseInt(prixVente) * parseInt(quantite), 0, '', ' ');
 
-      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeserviceMod + ')" data-toggle="tooltip" title="Cliquez pour modifier" class="row ligneSousService" id="id' + idTypeserviceMod + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
+      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeserviceMod + ')" data-toggle="tooltip" title="Cliquez pour modifier1" class="row ligneSousService" id="id' + idTypeserviceMod + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
       $(".ligneSousService").tooltip();
       //Desactivation du sous service dans la liste
       $('#monFormUpdateLine #idTypeserviceMod').prop('selectedIndex', 0);
@@ -679,13 +683,21 @@
       delete window.tableauSousService[id];
       $("#id" + id).remove();
       //Reitialisation des champs
-
+      
       $("#monFormUpdateLine #idTypeserviceMod").val('');
       $("#monFormUpdateLine #prixAchat").val('');
       $("#monFormUpdateLine #prixVente").val('');
       $("#monFormUpdateLine #quantite").val('');
-
       $('#updateLine').modal('hide');
+
+    var  idFamille =  $("#idFamille").val();
+    var element = {
+      value:idFamille
+    }
+
+      loadTypeService(element);
+      
+    
     }
   }
 
@@ -980,7 +992,7 @@
     }
   }
 
-  function loadTypeService(elmt) {
+  function loadTypeService(elmt, idForm='newServiceExistantLigne',property='idTypeservice') {
     //SElection de la rubrique
     // $("#idRubrique").val($("#idFamille :selected").attr("data-rubrique"));
     // $('#idRubrique').select2();
@@ -997,10 +1009,6 @@
       typeServiceUtilises += $(this).attr('data-value') + ",";
     });
 
-
-    console.log("idfamille:" + idFamille, "typeServiceUtilises :" + typeServiceUtilises, " typeservice:" + $("#typeserviceid").val())
-
-
     var ur = "php/view/devis/fillList.php?idFamille=" + idFamille + "&typeServiceUtilises=" + typeServiceUtilises;
     $.ajax({
       url: ur,
@@ -1013,10 +1021,13 @@
         // alert(sg);
         if (sg != "") {
           $('#newServiceExistantLigne #idTypeservice').html(sg);
+          $('#monFormUpdateLine #idTypeserviceMod').html(sg);
+          $('#'+idForm+' #'+property).html(sg);
           $("#bouttonEnregistrer").attr("disabled", true);
           $("#bouttonEnregistrer").html("Choisissez un service");
         } else {
           $('#newServiceExistantLigne #idTypeservice').html("");
+          $('#monFormUpdateLine #idTypeserviceMod').html("");
           $("#bouttonEnregistrer").attr("disabled", true);
           $("#bouttonEnregistrer").html("Choisissez un service");
         }
