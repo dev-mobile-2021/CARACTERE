@@ -235,8 +235,10 @@
 
     <section class="content">
 
-      <div class="box box-warning" id="parentContentDevis">
-        <div class="box-header">
+      <!-- <div class="box box-warning" id="parentContentDevis"> -->
+      <div class="box box-warning" >
+
+      <div class="box-header">
           <h3 class="box-title">Détails du Devis</h3>
         </div>
         <div class="box-boby">
@@ -577,7 +579,10 @@
       var prixVenteTexte = number_format(prixVente, 0, '', ' ');
       var quantiteTexte = number_format(quantite, 0, '', ' ');
       var totalLigne = number_format(parseInt(prixVente) * parseInt(quantite), 0, '', ' ');
-
+     
+      var idTypeservice = $("#typeserviceid").val();
+      console.log('je cherche', idTypeservice);
+     
       $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeservice + ')" data-toggle="tooltip" title="Cliquez pour modifier" class="row ligneSousService" id="id' + idTypeservice + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
       $(".ligneSousService").tooltip();
       //Desactivation du sous service dans la liste
@@ -914,8 +919,8 @@
               html: true
             });
           }
-           alert(msgvals[1]);
-           alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
+          //  alert(msgvals[1]);
+          //  alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
@@ -1266,10 +1271,10 @@
               <div class="col-md-3" style="padding-left: 0px;">
                 <div class="form-group">
                   <label>Descriptif</label>
-                  <select onchange="serviceChange(this)" class="form-control select2" style="width: 100%;" required="" id="idTypeserviceMod" name="idTypeserviceMod">
+                  <!-- <select onchange="serviceChange(this)" class="form-control select2" style="width: 100%;" required="" id="idTypeserviceMod" name="idTypeserviceMod">
 
-                  </select>
-                  <!-- <select class="form-control select2" style="width: 100%;" required="" id="idServiceMod" name="idServiceMod">
+                  </select> -->
+                  <select class="form-control select2" style="width: 100%;" required="" id="idServiceMod" name="idServiceMod">
                     <option disabled="" selected="" value="">Choisir un descriptif</option>
                     <?php
                     require_once('php/classe/classeService.php');
@@ -1282,7 +1287,7 @@
                     }
 
                     ?>
-                  </select> -->
+                  </select>
                 </div>
               </div>
               <div class="col-md-3" style="padding-left: 0px;">
@@ -1584,7 +1589,7 @@
             html: true
           });
           $("#modaltypeservice").modal("hide");
-          $('.loaderMessage1').addClass('is-active');
+          // $('.loaderMessage1').addClass('is-active');
           var idRubrique = $('#rubriqueid').val();
 
           if (idRubrique) {
