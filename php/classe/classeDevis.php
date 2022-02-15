@@ -482,31 +482,29 @@ class Devis
 
 	public function deleteTypeServiceDevis($idDevis, $idRubrique, $idFamille, $idTypeservice)
 	{
-		$requete = Connexion::Connect()->prepare('DELETE FROM detailsdevis WHERE idDevis = ? AND idRubrique = ? AND idFamille = ? AND idTypeservice = ?; DELETE FROM detailstypeservice WHERE idDevis = ? AND idRubrique = ? AND idFamille = ? AND idTypeservice = ?');
+		$requete = Connexion::Connect()->prepare('DELETE FROM detailstypeservice WHERE idDevis = ? AND idRubrique = ? AND idFamille = ? AND idTypeservice = ?');
 		$requete->bindValue(1, $idDevis);
 		$requete->bindValue(2, $idRubrique);
 		$requete->bindValue(3, $idFamille);
 		$requete->bindValue(4, $idTypeservice);
-
-		$requete->bindValue(5, $idDevis);
-		$requete->bindValue(6, $idRubrique);
-		$requete->bindValue(7, $idFamille);
-		$requete->bindValue(8, $idTypeservice);
 		$res = $requete->execute();
 		return ($res);
 	}
 
-	public function deleteFamille($idDevis, $idRubrique, $idFamille)
+	public function deleteFamille($idDevis, $idRubrique, $idFamille=null,$idTypeservice=null)
 	{
-		$requete = Connexion::Connect()->prepare('DELETE FROM detailsdevis WHERE idDevis = ? AND idRubrique = ? AND idFamille = ?; DELETE FROM detailstypeservice WHERE idDevis = ? AND idRubrique = ? AND idFamille = ?');
+		//echo "Params:". $idDevis ." " .$idRubrique;
+		$requete = Connexion::Connect()->prepare('DELETE FROM detailsdevis WHERE idDevis = ? AND idRubrique = ?');
+		
 		$requete->bindValue(1, $idDevis);
 		$requete->bindValue(2, $idRubrique);
-		$requete->bindValue(3, $idFamille);
-
-		$requete->bindValue(4, $idDevis);
-		$requete->bindValue(5, $idRubrique);
-		$requete->bindValue(6, $idFamille);
 		$res = $requete->execute();
+
+		$requete1 = Connexion::Connect()->prepare('DELETE FROM detailstypeservice WHERE idDevis = ? AND idRubrique = ?');
+		
+		$requete1->bindValue(1, $idDevis);
+		$requete1->bindValue(2, $idRubrique);
+		$res1 = $requete1->execute();
 		return ($res);
 	}
 	// Liste des deviss 

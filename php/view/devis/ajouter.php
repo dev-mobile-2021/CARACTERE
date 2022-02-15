@@ -327,8 +327,8 @@
                         </div> -->
 
                         <div class="form-group">
-                          <label for="idFournisseur">Fournisseur <span style="color:red">*</span></label>
-                          <select class="form-control select2" required="" id="idFournisseur" name="idFournisseur">
+                          <label for="idFournisseur">Fournisseur</label>
+                          <select class="form-control select2"  id="idFournisseur" name="idFournisseur">
                             <option value="">Choisir le fournisseur</option>
                             <?php
                             require_once('php/classe/classeFournisseur.php');
@@ -738,7 +738,7 @@
 
       var idtypehidden = $("#typeserviceid").val();
       console.log("rubrique famille typeservice", idRubrique, idFamille, idTypeservice, idtypehidden, "sousServices: "+sousServices)
-      if(idFournisseur && idFournisseur !== ''){
+      // if(idFournisseur && idFournisseur !== ''){
         $('.loaderMessage').addClass('is-active');
       $.ajax({
         type: "POST",
@@ -933,14 +933,15 @@
           });
         }
       });
-      }else{
-        swal({
-            title: "D&eacute;sol&eacute;",
-            text: "Veuillez choisir un fournisseur svp !",
-            imageUrl: 'dist/img/icones/error.png',
-            html: true
-          });
-      }
+      
+    // }else{
+    //     swal({
+    //         title: "D&eacute;sol&eacute;",
+    //         text: "Veuillez choisir un fournisseur svp !",
+    //         imageUrl: 'dist/img/icones/error.png',
+    //         html: true
+    //       });
+    //   }
       
 
 

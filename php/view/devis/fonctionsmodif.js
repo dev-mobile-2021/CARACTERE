@@ -52,7 +52,7 @@ function supprimerService(idRubrique, idFamille, idTypeservice, idService, idDev
 		
 }
 
-function reloadDetailDevis(idDevis, idRubrique, idFamille, idTypeservice){
+function reloadDetailDevis(idDevis, idRubrique, idFamille=null, idTypeservice=null){
 	$('.loaderMessage').addClass('is-active');
     $.ajax({
         type: "POST",
@@ -237,8 +237,8 @@ function modifierTypeservice(idRubrique, idFamille, idTypeservice){
 }
 
 
-function supprimerTypeservice(idRubrique, idFamille, idTypeservice){
-	var idDevis = $(".idDevis").attr("value");
+function supprimerTypeservice(idRubrique, idFamille, idTypeservice,idDevis){
+	var idDevis = $(".idDevis").attr("value") ? $(".idDevis").attr("value") : idDevis;
 	var idRubrique = idRubrique;
 	var idFamille = idFamille;
 	var idTypeservice = idTypeservice;
@@ -281,6 +281,8 @@ function supprimerTypeservice(idRubrique, idFamille, idTypeservice){
     });
 		
 }
+
+
 function saveDetails2(idDevis, idRubrique, idFamille, idTypeservice){
   if($("#monFormService2 #idService").val() == null /*|| $("#monFormService2 #prixAchat").val().length === 0 || $("#monFormService2 #prixVente").val().length === 0 || $("#monFormService2 #quantite").val().length === 0*/){
     // alert("remplir tout");

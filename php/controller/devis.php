@@ -98,7 +98,17 @@ if (isset($_GET['changerEtat'])) {
   $idTypeservice = $_GET['idTypeservice'];
   $res = $Devis->deleteTypeServiceDevis($idDevis, $idRubrique, $idFamille, $idTypeservice);
   echo $res;
-} else if (isset($_GET['supprimerService'])) {
+
+} else if (isset($_GET['supprimerDetailDevis'])) {
+  require_once("../classe/classeDevis.php");
+  $Devis = new Devis();
+
+  $idDevis = $_GET['idDevis'];
+  $idRubrique = $_GET['idRubrique'];
+  $res = $Devis->deleteFamille($idDevis, $idRubrique);
+  echo $res;
+}
+ else if (isset($_GET['supprimerService'])) {
   require_once("../classe/classeDevis.php");
   $Devis = new Devis();
 
@@ -259,12 +269,21 @@ if (isset($_GET['changerEtat'])) {
     }
     ?>
   <!-- Rubrique -->
-  <?php $i = 0;
+  <?php 
+  $i = 0;
+  if(isset($listRubrique) && count($listRubrique) > 0){
+
     foreach ($listRubrique as $valueRubrique) { ?>
     <div class="col-md-12" id="Rubrique<?php echo $valueRubrique['idRubrique'] ?>" data-id="<?php echo $valueRubrique['idRubrique'] ?>">
-      <p id="ddRubrique<?php echo $valueRubrique['idRubrique'] ?>" data-value="<?php echo $valueRubrique['total'] ?>" style="background-color: #46a1dc; color: #fff; padding: 3px;"><span><?php echo $valueRubrique['rubrique'] ?></span><strong style="float: right;" id="ddRubriqueSomme<?php echo $valueRubrique['idRubrique'] ?>"><?php echo number_format($valueRubrique['total'], 0, ',', ' ') ?> F</strong></p>
-
-      <!-- Famille -->
+      
+      <p id="ddRubrique<?php echo $valueRubrique['idRubrique'] ?>" data-value="<?php echo $valueRubrique['total'] ?>" style="background-color: #46a1dc; color: #fff; padding: 3px;">
+                <a href="javascript:void(0);"  style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>
+                <a href="javascript:void(0);" class="editDetail" onclick="editDetail(<?php echo $valueRubrique['idRubrique'] ?>,<?php echo $valueRubrique['total']?>)"  style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>
+                <span><?php echo $valueRubrique['rubrique'] ?></span>
+                <strong style="float: right;" id="ddRubriqueSomme<?php echo $valueRubrique['idRubrique'] ?>"><?php echo number_format($valueRubrique['total'], 0, ',', ' ') ?> F</strong>
+     </p>
+    
+     <!-- Famille -->
       <?php
           $idRubrique = $valueRubrique['idRubrique'];
           $listFamille = array();
@@ -280,7 +299,7 @@ if (isset($_GET['changerEtat'])) {
             $idFamille = $valueFamille['idFamille']; ?>
         <div class="col-md-12" style="padding-left:0px; padding-right:0px;" data-id="<?php echo $valueFamille['idFamille'] ?>" data-rubrique="<?php echo $valueRubrique['total'] ?>" id="Famille<?php echo $valueFamille['idFamille'] ?>">
           <p style="background-color: #a1cbe6; color: #fff; padding: 3px;">
-            <a href="javascript:void(0);" onclick="supprimerFamille(<?php echo $idRubrique ?>, <?php echo $idFamille ?>)" style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>
+            <!-- <a href="javascript:void(0);" onclick="supprimerFamille(<?php echo $idRubrique ?>, <?php echo $idFamille ?>)" style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a> -->
             <span><?php echo $valueFamille['famille'] ?></span>
           </p>
           <!-- Type service -->
@@ -340,7 +359,7 @@ if (isset($_GET['changerEtat'])) {
                                                                                                                                                                                                             ?>, <?php //echo intval($valueService['quantite']) 
                                                                                                                                                                                                                                             ?>)" style="margin-left:10px"><i style = "color:#000000" class="glyphicon glyphicon-pencil optionModSup" data-toggle="tooltip" title="Modifier"></i> </a> -->
 
-                    <a href="javascript:void(0);" onclick="supprimerService(<?php echo $idRubrique ?>, <?php echo $idFamille ?>, <?php echo $idTypeservice ?>, <?php echo $idService ?>, <?php echo $idDevis ?>, <?php echo intval($valueService['prixAchat']) ?>, <?php echo intval($valueService['prixVente']) ?>, <?php echo intval($valueService['quantite']) ?>)" style="margin-left:30px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>
+                    <!-- <a href="javascript:void(0);" onclick="supprimerService(<?php echo $idRubrique ?>, <?php echo $idFamille ?>, <?php echo $idTypeservice ?>, <?php echo $idService ?>, <?php echo $idDevis ?>, <?php echo intval($valueService['prixAchat']) ?>, <?php echo intval($valueService['prixVente']) ?>, <?php echo intval($valueService['quantite']) ?>)" style="margin-left:30px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a> -->
                     <span>
                       <?php echo $valueService['service'] ?>
                     </span>
@@ -359,7 +378,7 @@ if (isset($_GET['changerEtat'])) {
       <?php } ?>
       <!-- Fin Famille -->
     </div>
-  <?php } ?>
+  <?php } }?>
   <!-- Fin Rubrique -->
   <?php
 
@@ -530,6 +549,18 @@ if (isset($_GET['changerEtat'])) {
   require_once("../classe/classeDevis.php");
   $Devis = new Devis();
   //echo 'Sous servi : '. $_GET['sousServices'];
+  if(isset($_GET['rubriqueOld'])){
+    $rubriqueOld = $_GET['rubriqueOld'];
+  }
+  if(isset($_GET['familleOld'])){
+    $familleOld = $_GET['familleOld'];
+  }
+  if(isset($_GET['typeserviceOld'])){
+    $typeserviceOld = $_GET['typeserviceOld'];
+  }
+
+  
+ 
   $idRubrique = $_GET['idRubrique'];
   $idFamille = $_GET['idFamille'];
   $idTypeservice = $_GET['idTypeservice'];
@@ -548,14 +579,30 @@ if (isset($_GET['changerEtat'])) {
   require_once('../classe/classeConnexion.php');
 
   $idDevs = $_SESSION['idDevisZelda'];
-  if(isset($_GET['idFournisseur'])){
-    $infosFour = $_GET['idFournisseur'];
+     //Delet Old Details Devis
+  if(isset($rubriqueOld) && isset($familleOld) && isset($typeserviceOld)){
+   // $res = $Devis->deleteTypeServiceDevis($idDevs, $rubriqueOld, $familleOld, $typeserviceOld);
+    $res1 = $Devis->deleteFamille($idDevis, $rubriqueOld, $familleOld,$typeserviceOld); 
+
+    //echo $res1;
+  }
+
+  if(isset($_GET['idFournisseur']) && !empty($_GET['idFournisseur'])){
+  $infosFour = $_GET['idFournisseur'];
   $tab = explode("-", $infosFour);
-  $requete = Connexion::Connect()->prepare('UPDATE devis SET idFournisseur = ?, nomFournisseur = ? WHERE idDevis = ? ');
-  $requete->bindValue(1, $tab[0]);
-  $requete->bindValue(2, $tab[1]);
-  $requete->bindValue(3, $idDevs);
-  $requete->execute();
+ // echo var_dump($tab);
+  if(isset($tab) && count($tab) > 0){
+    if(!empty($tab[0]) && !empty($tab[1])){
+      $requete = Connexion::Connect()->prepare('UPDATE devis SET idFournisseur = ?, nomFournisseur = ? WHERE idDevis = ? ');
+      $requete->bindValue(1, $tab[0]);
+      $requete->bindValue(2, $tab[1]);
+      $requete->bindValue(3, $idDevs);
+      $requete->execute();
+    }
+    
+  }
+  
+  }
 
   $etat = 1;
 
@@ -615,12 +662,13 @@ if (isset($_GET['changerEtat'])) {
   // $res = $resultatRequete."#res#".$sousServices."--*--".$req;
   $res = $resultatRequete . "#res#" . $sousServices;
  
-  }else{
-    $resultatRequete = -1;
-    $res = $resultatRequete . "#res#";
-  }
-
+  // }
+  // else{
+  //   $resultatRequete = -1;
+  //   $res = $resultatRequete . "#res#";
+  // }
   echo $res;
+  echo 1 . "#res#";
   
   // <span>Sous-service 1</span><span style="float: right; padding-right: 100px;">2500 F</span><br>
 } else if (isset($_POST['addCommenaire'])) {
@@ -805,7 +853,7 @@ if (isset($_GET['changerEtat'])) {
   if ($Typeservice->libelleExist(htmlentities($_POST['typeService'], ENT_SUBSTITUTE)) == false) {
     $Typeservice = new Typeservice(NULL, $a, htmlentities($_POST['typeService'], ENT_SUBSTITUTE), htmlentities(htmlspecialchars($_POST['idFamille']), ENT_SUBSTITUTE), htmlentities($_POST['description'], ENT_SUBSTITUTE));
     $idReturn =  $Typeservice->addTypeserviceNew();
-    //On l'ajoute aussi dans la table service
+    
     if(isset($idReturn)){
       $a = matricule("service", "referenceService");
       $moisAnnee = date("m").date("Y");
@@ -828,7 +876,7 @@ if (isset($_GET['changerEtat'])) {
     }
    }
     
-
+//On l'ajoute aussi dans la table service
   
     echo 1;
   
