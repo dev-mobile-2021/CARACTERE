@@ -258,7 +258,7 @@ if (isset($_GET['changerEtat'])) {
     $idFamille = $_GET['idFamille'];
     $idTypeservice = $_GET['idTypeservice'];
 
-    echo "1#res#";
+    // echo "1#res#";
     $requeteRubrique = Connexion::Connect()->query("
               SELECT r.idRubrique, r.rubrique, (SELECT SUM(somme) FROM vrubrique WHERE idRubrique = r.idRubrique AND idDevis = \"$idDevis\") as total 
               FROM rubrique r 

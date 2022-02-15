@@ -746,8 +746,9 @@
 
         data: $(this).serialize(),
         success: function(msg) {
-          console.log('results : ',msg)
+          // console.log('results : ',msg)
           var msgvals = msg.split("#res#");
+
           if (parseInt(msgvals[0]) == 1) {
 
             var sousServicesAffiche = msgvals[1];
@@ -919,8 +920,8 @@
               html: true
             });
           }
-          //  alert(msgvals[1]);
-          //  alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
+            // alert(msgvals[1]);
+            // alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
@@ -1272,10 +1273,10 @@
               <div class="col-md-3" style="padding-left: 0px;">
                 <div class="form-group">
                   <label>Descriptif</label>
-                  <!-- <select onchange="serviceChange(this)" class="form-control select2" style="width: 100%;" required="" id="idTypeserviceMod" name="idTypeserviceMod">
+                  <select onchange="serviceChange(this)" class="form-control select2" style="width: 100%;" required="" id="idTypeserviceMod" name="idTypeserviceMod">
 
-                  </select> -->
-                  <select class="form-control select2" style="width: 100%;" required="" id="idServiceMod" name="idServiceMod">
+                  </select>
+                  <!-- <select class="form-control select2" style="width: 100%;" required="" id="idServiceMod" name="idServiceMod">
                     <option disabled="" selected="" value="">Choisir un descriptif</option>
                     <?php
                     require_once('php/classe/classeService.php');
@@ -1288,7 +1289,7 @@
                     }
 
                     ?>
-                  </select>
+                  </select> -->
                 </div>
               </div>
               <div class="col-md-3" style="padding-left: 0px;">
