@@ -233,7 +233,7 @@ foreach ($requeteService as $donnee) {
 			</tr>
 
 			<!-- <tr>
-				<td style="width: 100%; text-align: right;"><?php echo html_entity_decode($value['adresseClient'] ) ?></td>
+				<td style="width: 100%; text-align: right;">< ?php echo html_entity_decode($value['adresseClient'] ) ?></td>
 			</tr> -->
 			<!-- <tr>
 				<td style="width: 50%; text-align: left;"><?php echo $typetaxe ?></td>
