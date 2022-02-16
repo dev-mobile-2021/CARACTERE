@@ -406,13 +406,13 @@ foreach ($requeteService as $donnee) {
 											?>
 											
 							<tr>
-								<td style="padding: 5px; width: 60%;">
+								<td style="padding: 5px; width: 74%;">
 									<?php echo $valueService['service'] ?>
 								</td>
-								<td style="padding: 5px; width: 15%; text-align: right;">
+								<td style="padding: 5px; width: 15%; ">
 									<?php if ($valueService['quantite'] * $valueService['prixVente'] != 0) echo number_format($valueService['quantite'] * $valueService['prixVente'], 0, ',', ' ') . " F" ?>
 								</td>
-								<td style="padding: 5px; width: 25%; text-align: right;">
+								<td style="padding: 5px; width: 25%; ;">
 
 								</td>
 							</tr>

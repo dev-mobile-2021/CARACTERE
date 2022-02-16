@@ -235,8 +235,10 @@
 
     <section class="content">
 
-      <div class="box box-warning" id="parentContentDevis">
-        <div class="box-header">
+      <!-- <div class="box box-warning" id="parentContentDevis"> -->
+      <div class="box box-warning" >
+
+      <div class="box-header">
           <h3 class="box-title">Détails du Devis</h3>
         </div>
         <div class="box-boby">
@@ -577,8 +579,11 @@
       var prixVenteTexte = number_format(prixVente, 0, '', ' ');
       var quantiteTexte = number_format(quantite, 0, '', ' ');
       var totalLigne = number_format(parseInt(prixVente) * parseInt(quantite), 0, '', ' ');
-
-      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeservice + ')" data-toggle="tooltip" title="Cliquez pour modifier2" class="row ligneSousService" id="id' + idTypeservice + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
+     
+      var idTypeservice = $("#typeserviceid").val();
+      console.log('je cherche', idTypeservice);
+     
+      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeservice + ')" data-toggle="tooltip" title="Cliquez pour modifier" class="row ligneSousService" id="id' + idTypeservice + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
       $(".ligneSousService").tooltip();
       //Desactivation du sous service dans la liste
       $("#idTypeservice :selected").attr("disabled", true);
@@ -753,12 +758,18 @@
 
         data: $(this).serialize(),
         success: function(msg) {
-          console.log('results : ',msg)
+          //  console.log('results : ',msg)
           var msgvals = msg.split("#res#");
+          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length -1);
+          // var Affiche = substr(msgvals[1], 0, -1);
+
           if (parseInt(msgvals[0]) == 1) {
 
-            var sousServicesAffiche = msgvals[1];
-            // alert(sousServicesAffiche);
+           
+           var sousServicesAffiche = Affiche;
+        //  $sousServicesAffiche=  substr(Affiche, 0, -1)
+
+            // console.log("sousServicesAffiche",sousServicesAffiche);
             if ($('#Rubrique' + idRubrique).length) {
               
               //On recupere le total actel de la rubrique
@@ -803,6 +814,7 @@
                 '<div id="Typeservice' + idTypeservice + '" data-rubrique="' + idRubrique + '" data-famille="' + idFamille + '" class="col-md-12" style="padding-right:0px; padding-left:0px;">' +
                 '<p style="float: right !important; padding-right: 0px !important; font-weight: bold;" class="typeServiceUtilise' + idFamille + '" data-value="' + idTypeservice + '"><strong>' + texteTypeService + '</strong><strong class="classTotalService" data-value="' + totalServiceAfficheValeur + '" style="float: right;padding-right: 0px;">' + totalServiceAffiche + ' F</strong></p>' +
                 '<p >' +
+                
                 sousServicesAffiche +
                 '</p>' +
                 '</div>'
@@ -926,8 +938,9 @@
               html: true
             });
           }
-           alert(msgvals[1]);
-           alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
+            // alert(msgvals[1]);
+
+            // alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
@@ -1596,7 +1609,7 @@
             html: true
           });
           $("#modaltypeservice").modal("hide");
-          $('.loaderMessage1').addClass('is-active');
+          // $('.loaderMessage1').addClass('is-active');
           var idRubrique = $('#rubriqueid').val();
 
           if (idRubrique) {
