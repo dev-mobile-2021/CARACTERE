@@ -1216,8 +1216,8 @@
               html: true
             });
           }
-           alert(msgvals[1]);
-           alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
+          //  alert(msgvals[1]);
+          //  alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
