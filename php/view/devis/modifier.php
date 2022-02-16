@@ -1211,13 +1211,13 @@
           } else {
             swal({
               title: "D&eacute;sol&eacute;",
-              text: "Unes erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard",
+              text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard",
               imageUrl: 'dist/img/icones/errorDb.png',
               html: true
             });
           }
-          //  alert(msgvals[1]);
-          //  alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
+           alert(msgvals[1]);
+           alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
