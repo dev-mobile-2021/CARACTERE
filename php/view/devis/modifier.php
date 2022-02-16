@@ -1028,11 +1028,13 @@
         data: $(this).serialize(),
         success: function(msg) {
           var msgvals = msg.split("#res#");
+          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length -1);
+
           if (parseInt(msgvals[0]) == 1) {
             // swal({ title: "Effectué  !", text: "Le service a &eacute;t&eacute; ajout&eacute; avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
 
 
-            var sousServicesAffiche = msgvals[1];
+            var sousServicesAffiche = Affiche;
             // alert(sousServicesAffiche);
             if ($('#Rubrique' + idRubrique).length) {
               //On recupere le total actel de la rubrique
@@ -1213,8 +1215,8 @@
               html: true
             });
           }
-          //  alert(msgvals[1]);
-          //  alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
+           alert(msgvals[1]);
+           alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {

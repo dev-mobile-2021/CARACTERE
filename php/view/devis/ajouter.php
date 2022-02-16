@@ -758,13 +758,18 @@
 
         data: $(this).serialize(),
         success: function(msg) {
-          // console.log('results : ',msg)
+          //  console.log('results : ',msg)
           var msgvals = msg.split("#res#");
+          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length -1);
+          // var Affiche = substr(msgvals[1], 0, -1);
 
           if (parseInt(msgvals[0]) == 1) {
 
-            var sousServicesAffiche = msgvals[1];
-            // alert(sousServicesAffiche);
+           
+           var sousServicesAffiche = Affiche;
+        //  $sousServicesAffiche=  substr(Affiche, 0, -1)
+
+            // console.log("sousServicesAffiche",sousServicesAffiche);
             if ($('#Rubrique' + idRubrique).length) {
               
               //On recupere le total actel de la rubrique
@@ -809,6 +814,7 @@
                 '<div id="Typeservice' + idTypeservice + '" data-rubrique="' + idRubrique + '" data-famille="' + idFamille + '" class="col-md-12" style="padding-right:0px; padding-left:0px;">' +
                 '<p style="float: right !important; padding-right: 0px !important; font-weight: bold;" class="typeServiceUtilise' + idFamille + '" data-value="' + idTypeservice + '"><strong>' + texteTypeService + '</strong><strong class="classTotalService" data-value="' + totalServiceAfficheValeur + '" style="float: right;padding-right: 0px;">' + totalServiceAffiche + ' F</strong></p>' +
                 '<p >' +
+                
                 sousServicesAffiche +
                 '</p>' +
                 '</div>'
@@ -933,6 +939,7 @@
             });
           }
             // alert(msgvals[1]);
+
             // alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
