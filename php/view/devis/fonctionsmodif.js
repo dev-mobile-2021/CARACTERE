@@ -54,12 +54,14 @@ function supprimerService(idRubrique, idFamille, idTypeservice, idService, idDev
 
 function reloadDetailDevis(idDevis, idRubrique, idFamille=null, idTypeservice=null){
 	$('.loaderMessage').addClass('is-active');
+    
     $.ajax({
         type: "POST",
         url: "php/controller/devis.php?reloadDetailDevis&idRubrique="+idRubrique+"&idFamille="+idFamille+"&idTypeservice="+idTypeservice+"&idDevis="+idDevis, //process to mail
         data: $(this).serialize(),
         success: function(msg){
           var msgvals = msg.split("#res#");
+          
             if(parseInt(msgvals[0])==1){
                 // swal({ title: "Effectué  !", text: "Le service a &eacute;t&eacute; ajout&eacute; avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
                 if(msgvals[1] != "none")
@@ -69,13 +71,13 @@ function reloadDetailDevis(idDevis, idRubrique, idFamille=null, idTypeservice=nu
 
 
             }else{ 
-                swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard", imageUrl: 'dist/img/icones/errorDb.png', html: true});
+                swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard111", imageUrl: 'dist/img/icones/errorDb.png', html: true});
             }
            $('.loaderMessage').removeClass('is-active');
         },
         error: function(){
             $('.loaderMessage').removeClass('is-active');
-            swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue veuillez contacter l'administrateur", imageUrl: 'dist/img/icones/error.png', html: true});
+            swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue veuillez contacter l'administrateur222", imageUrl: 'dist/img/icones/error.png', html: true});
         }
     });
 }
@@ -243,6 +245,7 @@ function supprimerTypeservice(idRubrique, idFamille, idTypeservice,idDevis){
 	var idFamille = idFamille;
 	var idTypeservice = idTypeservice;
 
+    
 	swal({   title: "Suppression",   
         text: "&Ecirc;tes-vous s&ucirc;r de vouloir Supprimer cet &eacute;l&eacute;ment ?</strong>",   
         type: "warning",   

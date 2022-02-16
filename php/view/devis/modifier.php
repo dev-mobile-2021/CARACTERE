@@ -732,9 +732,11 @@
                     url: "php/controller/devis.php?supprimerDetailDevis=1&idRubrique="+idRubrique+"&idDevis="+idDevis, //process to mail
                     data: '',
                     success: function(msg){
+                      //alert(msg);
                         if(parseInt(msg)==1){
                             // swal({ title: "Effectué !", text: "La suppression a &eacute;t&eacute; effectu&eacute;e avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
-                          reloadDetailDevis(idDevis, idRubrique, idFamilleDelete, idTypeserviceDelete);
+                         // reloadDetailDevis(idDevis, idRubrique, idFamilleDelete, idTypeserviceDelete);
+                         window.location.href = "devis_modifier-"+idDevis;
                         }
                         else{ 
                             swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard", imageUrl: 'dist/img/icones/errorDb.png', html: true});
