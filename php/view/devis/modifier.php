@@ -881,7 +881,7 @@
   }
 
   function saveDetailsUpdate() {
-    var id = $("#monFormUpdateLine #oldIdSousService").attr("value");
+    var id = $("#oldIdSousService").attr("value");
     if ($("#monFormUpdateLine #idTypeserviceMod").val() == null /*|| $("#prixAchat").val().length === 0 || $("#prixVente").val().length === 0 || $("#quantite").val().length === 0*/ ) {
       swal({
         title: "Erreur",
@@ -914,7 +914,7 @@
       var quantiteTexte = number_format(quantite, 0, '', ' ');
       var totalLigne = number_format(parseInt(prixVente) * parseInt(quantite), 0, '', ' ');
 
-      $("#monFormUpdateLine #sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeserviceMod + ')" data-toggle="tooltip" title="Cliquez pour modifier" class="row ligneSousService" id="id' + idTypeserviceMod + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
+      $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeserviceMod + ')" data-toggle="tooltip" title="Cliquez pour modifier1" class="row ligneSousService" id="id' + idTypeserviceMod + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
       $(".ligneSousService").tooltip();
       //Desactivation du sous service dans la liste
       $('#monFormUpdateLine #idTypeserviceMod').prop('selectedIndex', 0);
@@ -928,11 +928,12 @@
       $("#monFormUpdateLine #quantite").val('');
 
 
-      $("#monFormUpdateLine #sousServices").attr("value", toAdd);
+      $("#sousServices").attr("value", toAdd);
 
       $('#updateLine').modal('hide');
     }
   }
+  
 
   function hotDeleteLine() { //--------------------------------------------------- A refaire avec confirm
     var id = $("#monFormUpdateLine #oldIdSousService").attr("value");
@@ -1197,7 +1198,7 @@
             //On affiche le boutton de validation du devis
             $("#validerdevis").show();
 
-
+            window.location.href = "devis_modifier-"+idDevis;
 
 
           } else if (parseInt(msgvals[0]) == 2) {
@@ -1302,6 +1303,8 @@
         // alert(sg);
         if (sg != "") {
           $('#newServiceExistantLigne #idTypeservice').html(sg);
+          $('#monFormUpdateLine #idTypeserviceMod').html(sg);
+          
           $("#bouttonEnregistrer").attr("disabled", true);
           $("#bouttonEnregistrer").html("Choisissez un service");
         } else {
