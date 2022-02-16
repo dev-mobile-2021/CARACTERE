@@ -493,6 +493,8 @@ class Devis
 
 	public function deleteFamille($idDevis, $idRubrique, $idFamille=null,$idTypeservice=null)
 	{
+
+		
 		//echo "Params:". $idDevis ." " .$idRubrique;
 		$requete = Connexion::Connect()->prepare('DELETE FROM detailsdevis WHERE idDevis = ? AND idRubrique = ?');
 		
