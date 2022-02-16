@@ -90,7 +90,7 @@ $(function () {
                     $("#validerdevis").show();
 
                 } else {
-                    swal({ title: "D&eacute;sol&eacute;", text: "UneSS erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard", imageUrl: 'dist/img/icones/errorDb.png', html: true });
+                    swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard", imageUrl: 'dist/img/icones/errorDb.png', html: true });
                 }
                 //  alert(msg);
                 $('.loaderMessage').removeClass('is-active');

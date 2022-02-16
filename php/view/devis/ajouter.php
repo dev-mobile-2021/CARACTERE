@@ -235,10 +235,10 @@
 
     <section class="content">
 
-      <!-- <div class="box box-warning" id="parentContentDevis"> -->
-      <div class="box box-warning" >
+      <div class="box box-warning" id="parentContentDevis">
+        <!-- <div class="box box-warning" > -->
 
-      <div class="box-header">
+        <div class="box-header">
           <h3 class="box-title">Détails du Devis</h3>
         </div>
         <div class="box-boby">
@@ -328,7 +328,7 @@
 
                         <div class="form-group">
                           <label for="idFournisseur">Fournisseur</label>
-                          <select class="form-control select2"  id="idFournisseur" name="idFournisseur">
+                          <select class="form-control select2" id="idFournisseur" name="idFournisseur">
                             <option value="">Choisir le fournisseur</option>
                             <?php
                             require_once('php/classe/classeFournisseur.php');
@@ -365,7 +365,7 @@
 
                               ?>
                             </select>
-                            
+
                           </div>
                         </div>
                         <div class="col-md-3" style="padding-left: 0px;">
@@ -579,10 +579,10 @@
       var prixVenteTexte = number_format(prixVente, 0, '', ' ');
       var quantiteTexte = number_format(quantite, 0, '', ' ');
       var totalLigne = number_format(parseInt(prixVente) * parseInt(quantite), 0, '', ' ');
-     
+
       var idTypeservice = $("#typeserviceid").val();
       console.log('je cherche', idTypeservice);
-     
+
       $("#sousServicesAjoutes").append('<div onclick="updateLine(' + idTypeservice + ')" data-toggle="tooltip" title="Cliquez pour modifier" class="row ligneSousService" id="id' + idTypeservice + '" style="margin-left: 0px; margin-right: 0px; margin: 5px 0px 5px 0px;"><div class="col-md-10" style="padding-right: 0px;"><div class="col-md-3" style="padding-left: 0px;">' + texteSousService + '</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixAchatTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + prixVenteTexte + ' F</div><div class="col-md-3" style="padding-left: 0px; text-align:right;">' + quantiteTexte + '</div></div><div class="col-md-2" style="padding-right: 0px;"><div class="col-md-12 montantSousService" data-value="' + parseInt(prixVente) * parseInt(quantite) + '" style="padding-left: 0px; text-align:right;">' + totalLigne + ' F</div></div></div>');
       $(".ligneSousService").tooltip();
       //Desactivation du sous service dans la liste
@@ -597,7 +597,7 @@
       $("#prixVente").val('');
       $("#quantite").val('');
 
-     // alert(toAdd);
+      // alert(toAdd);
       $("#sousServices").attr("value", toAdd);
     }
 
@@ -606,11 +606,11 @@
   function updateLine(id) {
     var ligne = window.tableauSousService[id];
     var valeurs = ligne.split("+@+");
-    setTimeout(function () {
-        $('#idTypeserviceMod').val(valeurs[0]).trigger('change');
+    setTimeout(function() {
+      $('#idTypeserviceMod').val(valeurs[0]).trigger('change');
     }, 500);
 
-   // $("#monFormUpdateLine #idTypeserviceMod").val(valeurs[0]).change();
+    // $("#monFormUpdateLine #idTypeserviceMod").val(valeurs[0]).change();
     $("#monFormUpdateLine #prixAchat").val(valeurs[1]);
     $("#monFormUpdateLine #prixVente").val(valeurs[2]);
     $("#monFormUpdateLine #quantite").val(valeurs[3]);
@@ -688,21 +688,21 @@
       delete window.tableauSousService[id];
       $("#id" + id).remove();
       //Reitialisation des champs
-      
+
       $("#monFormUpdateLine #idTypeserviceMod").val('');
       $("#monFormUpdateLine #prixAchat").val('');
       $("#monFormUpdateLine #prixVente").val('');
       $("#monFormUpdateLine #quantite").val('');
       $('#updateLine').modal('hide');
 
-    var  idFamille =  $("#idFamille").val();
-    var element = {
-      value:idFamille
-    }
+      var idFamille = $("#idFamille").val();
+      var element = {
+        value: idFamille
+      }
 
       loadTypeService(element);
-      
-    
+
+
     }
   }
 
@@ -744,14 +744,14 @@
       quantiteService = $('#quantiteService').val();
       //Maitenance en cours
       var sousServices = $('#sousServices').attr("value");
-     // alert(sousServices);
+      // alert(sousServices);
       var idDevis = $('.idDevis').attr("value");
       var currentRubrique = $('#currentRubrique').attr("value");
 
       var idtypehidden = $("#typeserviceid").val();
-      console.log("rubrique famille typeservice", idRubrique, idFamille, idTypeservice, idtypehidden, "sousServices: "+sousServices)
+      console.log("rubrique famille typeservice", idRubrique, idFamille, idTypeservice, idtypehidden, "sousServices: " + sousServices)
       // if(idFournisseur && idFournisseur !== ''){
-        $('.loaderMessage').addClass('is-active');
+      $('.loaderMessage').addClass('is-active');
       $.ajax({
         type: "POST",
         url: "php/controller/devis.php?addServices&idRubrique=" + idRubrique + "&idFamille=" + idFamille + "&idTypeservice=" + idTypeservice + "&sousServices=" + sousServices + "&idDevis=" + idDevis + "&idFournisseur=" + idFournisseur + "&prixAchatService=" + prixAchatService + "&prixVenteService=" + prixVenteService + "&quantiteService=" + quantiteService, //process to mail
@@ -760,18 +760,18 @@
         success: function(msg) {
           //  console.log('results : ',msg)
           var msgvals = msg.split("#res#");
-          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length -1);
+          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length - 1);
           // var Affiche = substr(msgvals[1], 0, -1);
 
           if (parseInt(msgvals[0]) == 1) {
 
-           
-           var sousServicesAffiche = Affiche;
-        //  $sousServicesAffiche=  substr(Affiche, 0, -1)
+
+            var sousServicesAffiche = Affiche;
+            //  $sousServicesAffiche=  substr(Affiche, 0, -1)
 
             // console.log("sousServicesAffiche",sousServicesAffiche);
             if ($('#Rubrique' + idRubrique).length) {
-              
+
               //On recupere le total actel de la rubrique
               var totalRubriqueActu = 0;
               if (isNaN(parseInt($("#ddRubrique" + idRubrique).attr('data-value'))))
@@ -808,19 +808,19 @@
                   '</div>'
                 );
               }
-              console.log('idTypeservice:'+idTypeservice , "idRubrique: "+idRubrique, "idFamille: " + idFamille, "idTypeservice: " +idTypeservice,"texteTypeService: "+texteTypeService,"totalServiceAffiche: "+totalServiceAffiche);
-              
+              console.log('idTypeservice:' + idTypeservice, "idRubrique: " + idRubrique, "idFamille: " + idFamille, "idTypeservice: " + idTypeservice, "texteTypeService: " + texteTypeService, "totalServiceAffiche: " + totalServiceAffiche);
+
               $("#Famille" + idFamille).append(
                 '<div id="Typeservice' + idTypeservice + '" data-rubrique="' + idRubrique + '" data-famille="' + idFamille + '" class="col-md-12" style="padding-right:0px; padding-left:0px;">' +
                 '<p style="float: right !important; padding-right: 0px !important; font-weight: bold;" class="typeServiceUtilise' + idFamille + '" data-value="' + idTypeservice + '"><strong>' + texteTypeService + '</strong><strong class="classTotalService" data-value="' + totalServiceAfficheValeur + '" style="float: right;padding-right: 0px;">' + totalServiceAffiche + ' F</strong></p>' +
                 '<p >' +
-                
+
                 sousServicesAffiche +
                 '</p>' +
                 '</div>'
               );
             } else {
-              
+
               var totalAffiche = 0;
               var totalAfficheValeur = 0;
               var totalServiceAfficheValeur = 0;
@@ -864,7 +864,7 @@
                   +'</p>'
                 +'</div>'
               );*/
-              console.log('idTypeservice:'+idTypeservice , "idRubrique: "+idRubrique, "idFamille: " + idFamille, "idTypeservice: " +idTypeservice,"texteTypeService: "+texteTypeService,"totalServiceAffiche: "+totalServiceAffiche, "Sous service : " + sousServicesAffiche);
+              console.log('idTypeservice:' + idTypeservice, "idRubrique: " + idRubrique, "idFamille: " + idFamille, "idTypeservice: " + idTypeservice, "texteTypeService: " + texteTypeService, "totalServiceAffiche: " + totalServiceAffiche, "Sous service : " + sousServicesAffiche);
 
               $("#Famille" + idFamille).append(
                 '<div id="Typeservice' + idTypeservice + '" data-rubrique="' + idRubrique + '" data-famille="' + idFamille + '" class="col-md-12" style="padding-right:0px; padding-left:0px;">' +
@@ -921,16 +921,14 @@
               imageUrl: 'dist/img/icones/error.png',
               html: true
             });
-          }
-          else if (parseInt(msgvals[0]) == -1) {
+          } else if (parseInt(msgvals[0]) == -1) {
             swal({
               title: "Erreur",
               text: "Veuillez choisir le fournisseur ",
               imageUrl: 'dist/img/icones/error.png',
               html: true
             });
-          }
-           else {
+          } else {
             swal({
               title: "D&eacute;sol&eacute;",
               text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard",
@@ -938,9 +936,9 @@
               html: true
             });
           }
-            // alert(msgvals[1]);
+          // alert(msgvals[1]);
 
-            // alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
+          // alert("Valeur renvoyee :"+msgvals[0]+"contenu : "+msgvals[1]+"idRubrique="+idRubrique+"&idTypeservice="+idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
@@ -953,16 +951,16 @@
           });
         }
       });
-      
-    // }else{
-    //     swal({
-    //         title: "D&eacute;sol&eacute;",
-    //         text: "Veuillez choisir un fournisseur svp !",
-    //         imageUrl: 'dist/img/icones/error.png',
-    //         html: true
-    //       });
-    //   }
-      
+
+      // }else{
+      //     swal({
+      //         title: "D&eacute;sol&eacute;",
+      //         text: "Veuillez choisir un fournisseur svp !",
+      //         imageUrl: 'dist/img/icones/error.png',
+      //         html: true
+      //       });
+      //   }
+
 
 
 
@@ -1005,7 +1003,7 @@
     }
   }
 
-  function loadTypeService(elmt, idForm='newServiceExistantLigne',property='idTypeservice') {
+  function loadTypeService(elmt, idForm = 'newServiceExistantLigne', property = 'idTypeservice') {
     //SElection de la rubrique
     // $("#idRubrique").val($("#idFamille :selected").attr("data-rubrique"));
     // $('#idRubrique').select2();
@@ -1035,7 +1033,7 @@
         if (sg != "") {
           $('#newServiceExistantLigne #idTypeservice').html(sg);
           $('#monFormUpdateLine #idTypeserviceMod').html(sg);
-          $('#'+idForm+' #'+property).html(sg);
+          $('#' + idForm + ' #' + property).html(sg);
           $("#bouttonEnregistrer").attr("disabled", true);
           $("#bouttonEnregistrer").html("Choisissez un service");
         } else {
@@ -1393,7 +1391,7 @@
         <h4 class="modal-title">Ajout Service</h4>
       </div>
       <form id="monFormServiceType">
-        <div class="modal-body" >
+        <div class="modal-body">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -1541,9 +1539,9 @@
                 if (sg != "") {
                   $('#idRubrique').html(sg);
 
-                   $('#divmodalservice').html(sg);
+                  $('#divmodalservice').html(sg);
 
-                  
+
 
 
 
@@ -1628,7 +1626,7 @@
                 if (sg != "") {
                   $('#newServiceExistantLigne #idFamille').html(sg);
                   $('#divmodaldescriptif').html(sg);
-                  
+
                   $("#bouttonEnregistrer").attr("disabled", true);
                   $("#bouttonEnregistrer").html("Choisissez un service");
                 } else {
@@ -1759,8 +1757,6 @@
       }
     });
   });
-
-  
 </script>
 
 <a href="#" class="float btn" data-toggle="tooltip" title="Basculer en mode &eacute;dition" style="display: none;" id="bouttonEdition">
