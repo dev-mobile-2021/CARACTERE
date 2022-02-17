@@ -44,7 +44,7 @@
     if (isset($opt[1])) {
       $idDevis = $opt[1];
       $requete = Connexion::Connect()->query("SELECT * FROM vdevis WHERE idDevis = \"$idDevis\" ");
-      
+
       //echo $idDevis;
       $requeteRubrique = Connexion::Connect()->query("
               SELECT r.idRubrique, r.rubrique, (SELECT SUM(somme) FROM vrubrique WHERE idRubrique = r.idRubrique AND idDevis = \"$idDevis\") as total 
@@ -58,10 +58,10 @@
     foreach ($requete as $donnee) {
       $list[] = $donnee;
     }
-    $idFournisseur =null;
-    $nomFournisseur =null;
-    $prenomFournisseur =null;
-    if(isset($list) && count($list) > 0){
+    $idFournisseur = null;
+    $nomFournisseur = null;
+    $prenomFournisseur = null;
+    if (isset($list) && count($list) > 0) {
       $idFournisseur = $list[0]['idFournisseur'];
       $nomFournisseur = $list[0]['nomFournisseur'];
       $prenomFournisseur = $list[0]['prenomFournisseur'];
@@ -86,7 +86,7 @@
         <div class="box box-primary">
           <div class="box-header with-border">
             <h3 class="box-title">Entête du Devis</h3><br><br><span style="color:red"><em><u>Note</u> : Les champs précédés de (*) sont obligatoires</em></span>
-            <input type="hidden" id="fournisseur_id" value="<?php echo $idFournisseur . "-".$nomFournisseur."-".$prenomFournisseur?>">
+            <input type="hidden" id="fournisseur_id" value="<?php echo $idFournisseur . "-" . $nomFournisseur . "-" . $prenomFournisseur ?>">
 
           </div>
           <!-- /.box-header -->
@@ -226,9 +226,17 @@
 
                     </select>
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for="commission">Commission sur la production</label>
                     <input type="number" min="0" class="form-control" id="commission" name="commission" value="<?php echo $value['commissionProduction']; ?>" placeholder="Entrer la commission sur la production (en %)">
+                  </div> -->
+                  <div class="form-group">
+                    <label for="commission">Commission sur la production <span style="color:red">*</span></label>
+                    <input type="number" min="0" class="form-control" id="commission" name="commission" placeholder="Entrer la commission sur la production (en %) " required="required">
+                  </div>
+                  <div class="form-group">
+                    <label for="commission">Commission forfaitaire</label>
+                    <input type="number" min="0" class="form-control" id="commissionf" name="commissionf" placeholder="Entrer la commission forfaitaire (en cfa) ">
                   </div>
                   <div class="form-group">
                     <label for="commentaire">Commentaire(s)</label>
@@ -283,24 +291,24 @@
             <h3 class="box-title">Détails du Devis</h3>
           </div>
           <div class="box-boby">
-          <input type="hidden" id="rubrique_modif" >
-          <input type="hidden" id="famille_modif"  >
-          <input type="hidden" id="typeservice_modif">
+            <input type="hidden" id="rubrique_modif">
+            <input type="hidden" id="famille_modif">
+            <input type="hidden" id="typeservice_modif">
 
             <div class="row" id="detailDevis" style="padding-left: 15px; padding-right: 15px;">
               <!-- Rubrique -->
               <?php $i = 0;
                 foreach ($listRubrique as $valueRubrique) { ?>
                 <div class="col-md-12" id="Rubrique<?php echo $valueRubrique['idRubrique'] ?>" data-id="<?php echo $valueRubrique['idRubrique'] ?>">
-                
-                <p id="ddRubrique<?php echo $valueRubrique['idRubrique'] ?>" data-value="<?php echo $valueRubrique['total'] ?>" style="background-color: #46a1dc; color: #fff; padding: 3px;">
-                <a href="javascript:void(0);" onclick="supprimerDetailDevis(<?php echo $valueRubrique['idRubrique'] ?>, <?php echo $idDevis ?>)"  style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="SupprimerPO"></i> </a>
-                <a href="javascript:void(0);" class="editDetail" onclick="editDetail(<?php echo $valueRubrique['idRubrique'] ?>,<?php echo $valueRubrique['total']?>)"  style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>
-                <span>
-                  <?php echo $valueRubrique['rubrique'] ?>
-                </span>
-                <strong style="float: right;" id="ddRubriqueSomme<?php echo $valueRubrique['idRubrique'] ?>"><?php echo number_format($valueRubrique['total'], 0, ',', ' ') ?> F</strong>
-                </p>
+
+                  <p id="ddRubrique<?php echo $valueRubrique['idRubrique'] ?>" data-value="<?php echo $valueRubrique['total'] ?>" style="background-color: #46a1dc; color: #fff; padding: 3px;">
+                    <a href="javascript:void(0);" onclick="supprimerDetailDevis(<?php echo $valueRubrique['idRubrique'] ?>, <?php echo $idDevis ?>)" style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>
+                    <a href="javascript:void(0);" class="editDetail" onclick="editDetail(<?php echo $valueRubrique['idRubrique'] ?>,<?php echo $valueRubrique['total'] ?>)" style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>
+                    <span>
+                      <?php echo $valueRubrique['rubrique'] ?>
+                    </span>
+                    <strong style="float: right;" id="ddRubriqueSomme<?php echo $valueRubrique['idRubrique'] ?>"><?php echo number_format($valueRubrique['total'], 0, ',', ' ') ?> F</strong>
+                  </p>
 
                   <!-- Famille -->
                   <?php
@@ -325,8 +333,8 @@
                       <p style="background-color: #a1cbe6; color: #fff; padding: 3px;">
                         <!-- <a href="javascript:void(0);" onclick="supprimerFamille(<?php echo $idRubrique ?>, <?php echo $idFamille ?>)" style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a> -->
                         <span><?php echo $valueFamille['famille'] ?></span>
-                        <input type="hidden" id="rubrique<?php echo $valueRubrique['idRubrique']?>" name="idRubrique" value="<?php echo $valueFamille['idFamille']?>">
-          
+                        <input type="hidden" id="rubrique<?php echo $valueRubrique['idRubrique'] ?>" name="idRubrique" value="<?php echo $valueFamille['idFamille'] ?>">
+
                       </p>
                       <!-- Type service -->
                       <?php
@@ -362,30 +370,30 @@
                             AND t.idTypeservice = \"$idTypeservice\"
                             AND idDevis = \"$idDevis\"
                               ");
-                            
-                              $queryMontantVenteUnitaire = Connexion::Connect()->query("
+
+                                    $queryMontantVenteUnitaire = Connexion::Connect()->query("
                             SELECT d.prixVente, d.prixAchat, d.quantite
                             FROM detailstypeservice d
                             WHERE d.idTypeservice = \"$idTypeservice\"
                             AND d.idDevis = \"$idDevis\"
                             AND d.idRubrique = \"$idRubrique\"
                               ");
-                              $prix              =[];
-                              $prixVenteUnitaire = 0;
-                              $prixAchatUnitaire = 0;
-                              $quantiteUnitaire  = 0;
-                              
+                                    $prix              = [];
+                                    $prixVenteUnitaire = 0;
+                                    $prixAchatUnitaire = 0;
+                                    $quantiteUnitaire  = 0;
 
-                              foreach ($queryMontantVenteUnitaire as $donneemontantVente) {
-                                $prix[] = $donneemontantVente;
-                              }
-                              if(isset($prix) && count($prix) > 0){
-                                $prixVenteUnitaire     = $prix[0]['prixVente'];
-                                $prixAchatUnitaire     = $prix[0]['prixAchat'];
-                                $quantiteUnitaire      = $prix[0]['quantite'];
-                              }
-                              
-                             
+
+                                    foreach ($queryMontantVenteUnitaire as $donneemontantVente) {
+                                      $prix[] = $donneemontantVente;
+                                    }
+                                    if (isset($prix) && count($prix) > 0) {
+                                      $prixVenteUnitaire     = $prix[0]['prixVente'];
+                                      $prixAchatUnitaire     = $prix[0]['prixAchat'];
+                                      $quantiteUnitaire      = $prix[0]['quantite'];
+                                    }
+
+
                                     foreach ($requeteService as $donnee) {
                                       $listService[] = $donnee;
                                     }
@@ -398,15 +406,15 @@
 
                                 <!-- <a href="javascript:void(0);" onclick="supprimerTypeservice(<?php echo $idRubrique ?>, <?php echo $idFamille ?>, <?php echo $idTypeservice ?>, <?php echo $idDevis ?>)" style="margin-left:30px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer "></i> </a> -->
                                 <span>
-                                  <?php echo $valueService['service']?>
-                                
-                                </span>
-                                <input type="hidden" id="famille<?php echo $idFamille?>" value="<?php echo $idService?>">
-                                <input type="hidden" id="prixVente<?php echo $idFamille?>" value="<?php echo $prixVenteUnitaire?>">
-                                <input type="hidden" id="prixAchat<?php echo $idFamille?>" value="<?php echo $prixAchatUnitaire?>">
-                                <input type="hidden" id="quantite<?php echo $idFamille?>" value="<?php echo $quantiteUnitaire?>">
+                                  <?php echo $valueService['service'] ?>
 
-                                
+                                </span>
+                                <input type="hidden" id="famille<?php echo $idFamille ?>" value="<?php echo $idService ?>">
+                                <input type="hidden" id="prixVente<?php echo $idFamille ?>" value="<?php echo $prixVenteUnitaire ?>">
+                                <input type="hidden" id="prixAchat<?php echo $idFamille ?>" value="<?php echo $prixAchatUnitaire ?>">
+                                <input type="hidden" id="quantite<?php echo $idFamille ?>" value="<?php echo $quantiteUnitaire ?>">
+
+
                                 <span style="float: right; padding-right: 0px; font-weight: bold;">
                                   <?php echo number_format(intval($valueService['quantite']) * intval($valueService['prixVente']), 0, ',', ' '); ?> F
                                 </span>
@@ -524,7 +532,7 @@
                             <label for="idFournisseur">Fournisseur</label>
 
                             <select class="form-control select2" id="idFournisseur" name="idFournisseur">
-                            <option disabled="" selected="">Choisir le fournisseur</option>
+                              <option disabled="" selected="">Choisir le fournisseur</option>
                               <?php
                                 require_once('php/classe/classeFournisseur.php');
                                 $fournisseurs = new Fournisseur();
@@ -667,7 +675,6 @@
 </div>
 
 <script type="text/javascript">
-
   $("[name=typeRemise]").on("click", function() {
     if (parseInt($(this).val()) == 1) {
       $("#valeurRemise").attr("max", 100);
@@ -675,91 +682,105 @@
       $("#valeurRemise").removeAttr("max");
     }
   });
-  
-  setTimeout(function () {
-        $('#idFournisseur').val($("#fournisseur_id").val()).trigger('change');
-        
-    }, 10);
-  
-  function editDetail (idRubrique, total = 0){
-  
-    setTimeout(function () {
-        $('#idRubrique').val(idRubrique).trigger('change');
-        $('#idFamille').val($("#rubrique"+idRubrique).val()).trigger('change');
-        $('#rubrique_modif').val(idRubrique).trigger('change');
-      
-  
+
+  setTimeout(function() {
+    $('#idFournisseur').val($("#fournisseur_id").val()).trigger('change');
+
+  }, 10);
+
+  function editDetail(idRubrique, total = 0) {
+
+    setTimeout(function() {
+      $('#idRubrique').val(idRubrique).trigger('change');
+      $('#idFamille').val($("#rubrique" + idRubrique).val()).trigger('change');
+      $('#rubrique_modif').val(idRubrique).trigger('change');
+
+
     }, 500);
 
-       var  idFamille = $("#rubrique"+idRubrique).val();
+    var idFamille = $("#rubrique" + idRubrique).val();
 
-        setTimeout(function () {
-        $('#idFamille').val(idFamille).trigger('change');
-        $('#famille_modif').val(idFamille).trigger('change');
-        },1000);
+    setTimeout(function() {
+      $('#idFamille').val(idFamille).trigger('change');
+      $('#famille_modif').val(idFamille).trigger('change');
+    }, 1000);
 
-        setTimeout(function () {
-        $('#idTypeservice').val($("#famille"+idFamille).val()).trigger('change');
-        $('#prixVenteService').val($("#prixVente"+idFamille).val()).trigger('change');
-        $('#prixAchatService').val($("#prixAchat"+idFamille).val()).trigger('change');
-        $('#quantiteService').val($("#quantite"+idFamille).val()).trigger('change');
-        $('#typeservice_modif').val($("#famille"+idFamille).val()).trigger('change');
-      
-        
-        },1500);
+    setTimeout(function() {
+      $('#idTypeservice').val($("#famille" + idFamille).val()).trigger('change');
+      $('#prixVenteService').val($("#prixVente" + idFamille).val()).trigger('change');
+      $('#prixAchatService').val($("#prixAchat" + idFamille).val()).trigger('change');
+      $('#quantiteService').val($("#quantite" + idFamille).val()).trigger('change');
+      $('#typeservice_modif').val($("#famille" + idFamille).val()).trigger('change');
 
-      
-  };  
 
-  function supprimerDetailDevis(idRubrique,idDevis){
-      var idFamilleDelete     = $("#rubrique"+idRubrique).val();
-      var idTypeserviceDelete = $("#famille"+idFamilleDelete).val();
-	
-  swal({   title: "Suppression",   
-        text: "&Ecirc;tes-vous s&ucirc;r de vouloir Supprimer cet &eacute;l&eacute;ment ?</strong>",   
-        type: "warning",   
+    }, 1500);
+
+
+  };
+
+  function supprimerDetailDevis(idRubrique, idDevis) {
+    var idFamilleDelete = $("#rubrique" + idRubrique).val();
+    var idTypeserviceDelete = $("#famille" + idFamilleDelete).val();
+
+    swal({
+        title: "Suppression",
+        text: "&Ecirc;tes-vous s&ucirc;r de vouloir Supprimer cet &eacute;l&eacute;ment ?</strong>",
+        type: "warning",
         showCancelButton: true,
-        html:true,   
-        confirmButtonColor: "red",   
-        confirmButtonText: "Supprimer",   
-        cancelButtonText: "Annuler",   
-        closeOnConfirm: true,   
-        closeOnCancel: false }, 
-        function(isConfirm){   
-            if (isConfirm) {  
-                $.ajax({
-                    type: "GET",
-                    url: "php/controller/devis.php?supprimerDetailDevis=1&idRubrique="+idRubrique+"&idDevis="+idDevis, //process to mail
-                    data: '',
-                    success: function(msg){
-                      //alert(msg);
-                        if(parseInt(msg)==1){
-                            // swal({ title: "Effectué !", text: "La suppression a &eacute;t&eacute; effectu&eacute;e avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
-                         // reloadDetailDevis(idDevis, idRubrique, idFamilleDelete, idTypeserviceDelete);
-                         window.location.href = "devis_modifier-"+idDevis;
-                        }
-                        else{ 
-                            swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard", imageUrl: 'dist/img/icones/errorDb.png', html: true});
-                        }
-                       // alert(msg); 
-                    },
-                    error: function(){
-                        swal({ title: "D&eacute;sol&eacute;", text: "Une erreur est survenue veuillez contacter l'administrateur", imageUrl: 'dist/img/icones/error.png', html: true});                            
-                    }
-                    });  
-            } 
-            else {
-                swal({ title: "Annul&eacute;", text: "L'&eacute;l&eacute;ment n'a pas &eacute;t&eacute; supprim&eacute;", imageUrl: 'dist/img/icones/success.png', html: true});
+        html: true,
+        confirmButtonColor: "red",
+        confirmButtonText: "Supprimer",
+        cancelButtonText: "Annuler",
+        closeOnConfirm: true,
+        closeOnCancel: false
+      },
+      function(isConfirm) {
+        if (isConfirm) {
+          $.ajax({
+            type: "GET",
+            url: "php/controller/devis.php?supprimerDetailDevis=1&idRubrique=" + idRubrique + "&idDevis=" + idDevis, //process to mail
+            data: '',
+            success: function(msg) {
+              //alert(msg);
+              if (parseInt(msg) == 1) {
+                // swal({ title: "Effectué !", text: "La suppression a &eacute;t&eacute; effectu&eacute;e avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
+                // reloadDetailDevis(idDevis, idRubrique, idFamilleDelete, idTypeserviceDelete);
+                window.location.href = "devis_modifier-" + idDevis;
+              } else {
+                swal({
+                  title: "D&eacute;sol&eacute;",
+                  text: "Une erreur est survenue lors de la connexion &agrave; la base de donn&eacute;es, veuillez r&eacute;essayer plus tard",
+                  imageUrl: 'dist/img/icones/errorDb.png',
+                  html: true
+                });
+              }
+              // alert(msg); 
+            },
+            error: function() {
+              swal({
+                title: "D&eacute;sol&eacute;",
+                text: "Une erreur est survenue veuillez contacter l'administrateur",
+                imageUrl: 'dist/img/icones/error.png',
+                html: true
+              });
+            }
+          });
+        } else {
+          swal({
+            title: "Annul&eacute;",
+            text: "L'&eacute;l&eacute;ment n'a pas &eacute;t&eacute; supprim&eacute;",
+            imageUrl: 'dist/img/icones/success.png',
+            html: true
+          });
 
-            } 
-    });
-}
-
+        }
+      });
+  }
 </script>
 <script type="text/javascript">
   $(document).ready(function() {
-    
-    
+
+
   });
 
   //Pour que le click sur la div ouvre le descrition
@@ -935,7 +956,7 @@
       $('#updateLine').modal('hide');
     }
   }
-  
+
 
   function hotDeleteLine() { //--------------------------------------------------- A refaire avec confirm
     var id = $("#monFormUpdateLine #oldIdSousService").attr("value");
@@ -1015,23 +1036,23 @@
 
       $('.loaderMessage').addClass('is-active');
 
-      var idRubriqueModif    = $('#rubrique_modif').val();
-      var idFamilleModif     = $('#famille_modif').val();
+      var idRubriqueModif = $('#rubrique_modif').val();
+      var idFamilleModif = $('#famille_modif').val();
       var idTypeserviceModif = $('#typeservice_modif').val();
-     // alert(idRubriqueModif + " " + idFamilleModif)
-    
-     // alert(idRubrique + " " + idFamille + " " +  idTypeservice  + "/ " +  idRubriqueModif +" "+idFamilleModif+" "+idTypeserviceModif);
+      // alert(idRubriqueModif + " " + idFamilleModif)
 
-    
+      // alert(idRubrique + " " + idFamille + " " +  idTypeservice  + "/ " +  idRubriqueModif +" "+idFamilleModif+" "+idTypeserviceModif);
+
+
       $.ajax({
         type: "POST",
         // url: "php/controller/devis.php?addServices&idRubrique="+idRubrique+"&idFamille="+idFamille+"&idTypeservice="+idTypeservice+"&sousServices="+sousServices+"&idDevis="+idDevis+"&commentaireTypeservice="+commentaireTypeservice+"&prixAchatService="+prixAchatService+"&prixVenteService="+prixVenteService+"&quantiteService="+quantiteService, //process to mail
-        url: "php/controller/devis.php?addServices&idRubrique=" + idRubrique + "&idFamille=" + idFamille + "&idTypeservice=" + idTypeservice + "&sousServices=" + sousServices + "&idDevis=" + idDevis + "&idFournisseur=" + idFournisseur + "&prixAchatService=" + prixAchatService + "&prixVenteService=" + prixVenteService + "&quantiteService=" + quantiteService +"&rubriqueOld="+idRubriqueModif +"&familleOld="+idFamilleModif+"&typeserviceOld="+idTypeserviceModif, //process to mail
+        url: "php/controller/devis.php?addServices&idRubrique=" + idRubrique + "&idFamille=" + idFamille + "&idTypeservice=" + idTypeservice + "&sousServices=" + sousServices + "&idDevis=" + idDevis + "&idFournisseur=" + idFournisseur + "&prixAchatService=" + prixAchatService + "&prixVenteService=" + prixVenteService + "&quantiteService=" + quantiteService + "&rubriqueOld=" + idRubriqueModif + "&familleOld=" + idFamilleModif + "&typeserviceOld=" + idTypeserviceModif, //process to mail
 
         data: $(this).serialize(),
         success: function(msg) {
           var msgvals = msg.split("#res#");
-          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length -1);
+          var Affiche = (msgvals[1]).substr(0, (msgvals[1]).length - 1);
 
           if (parseInt(msgvals[0]) == 1) {
             // swal({ title: "Effectué  !", text: "Le service a &eacute;t&eacute; ajout&eacute; avec succ&egrave;s", imageUrl: 'dist/img/icones/success.png', html: true});
@@ -1091,11 +1112,9 @@
 
                 +
                 // '<a href="javascript:void(0);" onclick="modifierTypeservice(' + idRubrique + ', ' + idFamille + ', ' + idTypeservice + ')"><i style = "color:#000000" class="glyphicon glyphicon-pencil optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>'
-                ''
-                +
+                '' +
                 // '<a href="javascript:void(0);" onclick="supprimerTypeservice(' + idRubrique + ', ' + idFamille + ', ' + idTypeservice + ')" style="margin-left:10px; margin-right:10px;"><i style = "color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>'
-                ''
-                +
+                '' +
                 '<strong>' + texteTypeService + '</strong><strong class="classTotalService" data-value="' + totalServiceAfficheValeur + '" style="float: right; padding-right: 3px;">' + totalServiceAffiche + ' F</strong></p>' +
                 '<p>' +
                 sousServicesAffiche +
@@ -1124,12 +1143,12 @@
               }
               //ajout de titre
               // <a href="javascript:void(0);"  style="margin-left:10px; margin-right:10px;"><i style="color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>
-                // <a href="javascript:void(0);" class="editDetail" onclick="editDetail(< ? php echo $valueRubrique['idRubrique'] ?>,< ?php echo $valueRubrique['total']?>)"  style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>
+              // <a href="javascript:void(0);" class="editDetail" onclick="editDetail(< ? php echo $valueRubrique['idRubrique'] ?>,< ?php echo $valueRubrique['total']?>)"  style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>
 
-                
+
               $("#detailDevis").append(
                 '<div class="col-md-12" id="Rubrique' + idRubrique + '" data-id="' + idRubrique + '">' +
-                '<a href="javascript:void(0);" class="editDetail" onclick="editDetail("'+idRubrique+','+totalAfficheValeur+'")"  style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>'+
+                '<a href="javascript:void(0);" class="editDetail" onclick="editDetail("' + idRubrique + ',' + totalAfficheValeur + '")"  style="margin-left:10px; margin-right:10px;"><i style="color:black" class="glyphicon glyphicon-edit optionModSup" data-toggle="tooltip" title="Modifier"></i> </a>' +
                 '  <p id="ddRubrique' + idRubrique + '" data-value="' + totalAfficheValeur + '" style="background-color: #46a1dc; color: #fff; padding: 3px;"><span>' + texteRubrique + '</span><strong style="float: right;" id="ddRubriqueSomme' + idRubrique + '">' + totalAffiche + '</strong></p>' +
                 '</div>'
               );
@@ -1154,8 +1173,7 @@
 
                 +
                 // '<a href="javascript:void(0);" onclick="supprimerTypeservice(' + idRubrique + ', ' + idFamille + ', ' + idTypeservice + ')" style="margin-left:10px; margin-right:10px;"><i style = "color:#FF0000" class="glyphicon glyphicon-trash optionModSup" data-toggle="tooltip" title="Supprimer"></i> </a>'
-                ''
-                +
+                '' +
                 '<strong>' + texteTypeService + '</strong><strong class="classTotalService" data-value="' + totalServiceAfficheValeur + '" style="float: right; padding-right: 3px;">' + totalServiceAffiche + ' F</strong></p>' +
                 '<p>' +
                 sousServicesAffiche +
@@ -1200,7 +1218,7 @@
             //On affiche le boutton de validation du devis
             $("#validerdevis").show();
 
-            window.location.href = "devis_modifier-"+idDevis;
+            window.location.href = "devis_modifier-" + idDevis;
 
 
           } else if (parseInt(msgvals[0]) == 2) {
@@ -1218,8 +1236,8 @@
               html: true
             });
           }
-           alert(msgvals[1]);
-           alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
+          // alert(msgvals[1]);
+          // alert("Valeur renvoyee :" + msgvals[0] + "contenu : " + msgvals[1] + "idRubrique=" + idRubrique + "&idTypeservice=" + idTypeservice);
           $('.loaderMessage').removeClass('is-active');
         },
         error: function() {
@@ -1306,7 +1324,7 @@
         if (sg != "") {
           $('#newServiceExistantLigne #idTypeservice').html(sg);
           $('#monFormUpdateLine #idTypeserviceMod').html(sg);
-          
+
           $("#bouttonEnregistrer").attr("disabled", true);
           $("#bouttonEnregistrer").html("Choisissez un service");
         } else {
@@ -1503,6 +1521,10 @@
                   showConfirmButton: false,
                   html: true
                 });
+                $(document).click(function(){
+                        window.location.href = "doc/devis/DevisCommercial_" + msg + " ";
+
+                    });
               } else {
                 $('#preloaderImpression').modal('hide');
                 swal("Le devis que vous essayez de créer est actuellement ouvert sur votre ordinateur. Veuillez le fermer puis reéssayer");
