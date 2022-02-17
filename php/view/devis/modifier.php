@@ -1102,7 +1102,7 @@
                 '</p>' +
                 '</div>'
               );
-               reloadDetailDevis(idDevis, idRubrique, idFamille, idTypeservice);
+              // reloadDetailDevis(idDevis, idRubrique, idFamille, idTypeservice);
             } else {
               var totalAffiche = 0;
               var totalAfficheValeur = 0;
@@ -1162,7 +1162,7 @@
                 '</p>' +
                 '</div>'
               );
-               reloadDetailDevis(idDevis, idRubrique, idFamille, idTypeservice);
+               //reloadDetailDevis(idDevis, idRubrique, idFamille, idTypeservice);
 
               //mise a jour de la valeur de la rubrique actuelle
               // $('#currentRubrique').attr('value', idRubrique);
